@@ -21,7 +21,6 @@ export default function Header() {
     { name: 'Home', href: '#home' },
     { name: 'About Dr. Aditi', href: '#about' },
     { name: 'Services', href: '#services' },
-    { name: 'Smile Studio', href: '#smile-hub' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Contact', href: '#contact' },
@@ -32,7 +31,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
     const targetElement = document.querySelector(href);
     if (targetElement) {
-      const headerOffset = 80;
+      const headerOffset = 95;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -71,11 +70,11 @@ export default function Header() {
         {/* Action CTAs */}
         <div className="header-actions">
           <a href="tel:09208430808" className="btn btn-outline btn-phone">
-            <Phone size={16} />
+            <Phone size={18} />
             <span>Call Now</span>
           </a>
           <a href="#booking" onClick={(e) => handleNavClick(e, '#booking')} className="btn btn-primary btn-book">
-            <Calendar size={16} />
+            <Calendar size={18} />
             <span>Book Appointment</span>
           </a>
           
@@ -84,7 +83,7 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
@@ -104,16 +103,16 @@ export default function Header() {
               </a>
             ))}
             <div className="mobile-actions">
-              <a href="tel:09208430808" className="btn btn-outline mobile-btn">
-                <Phone size={16} />
+              <a href="tel:09208430808" className="btn btn-outline mobile-btn btn-phone">
+                <Phone size={18} />
                 <span>Call Now</span>
               </a>
               <a 
                 href="#booking" 
                 onClick={(e) => handleNavClick(e, '#booking')} 
-                className="btn btn-primary mobile-btn"
+                className="btn btn-primary mobile-btn btn-book"
               >
-                <Calendar size={16} />
+                <Calendar size={18} />
                 <span>Book Appointment</span>
               </a>
             </div>

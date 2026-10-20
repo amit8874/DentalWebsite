@@ -1,29 +1,119 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, Phone, Star } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Phone, Clock, MapPin, Star } from 'lucide-react';
+
+const heroSlides = [
+  {
+    id: 1,
+    badge: '5.0 Star Rated (87+ Patient Reviews)',
+    titleMain: 'A better life starts with a',
+    titleHighlight: 'beautiful smile',
+    description:
+      'Experience precision-driven aesthetic dentistry and gentle restorative treatments in Lucknow. Led by Dr. Aditi Mishra, Prosthodontist, we ensure honest, conservative care for every generation.',
+    subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
+    images: {
+      box1: {
+        src: '/assets/client_photo_1.webp',
+        alt: "Dr. Aditi's Dental Clinic Treatment",
+        tag: 'Clinic Treatment Suite'
+      },
+      box2: {
+        src: '/assets/dr-aditi.png',
+        alt: 'Dr. Aditi - Prosthodontist & Implantologist',
+        tag: 'Dr. Aditi'
+      },
+      box3: {
+        src: '/assets/client_photo_2.webp',
+        alt: 'Dr. Aditi Advanced Setup',
+        tag: 'Advanced Setup'
+      }
+    }
+  },
+  {
+    id: 2,
+    badge: '5.0 Star Rated (87+ Patient Reviews)',
+    titleMain: 'Precision implants &',
+    titleHighlight: 'maxillofacial excellence',
+    description:
+      'Specializing in advanced dental implants, precision dentures, and comprehensive maxillofacial smile rehabilitation. We pair cutting-edge diagnostics with hospital-grade sterilization for painless, enduring comfort.',
+    subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
+    images: {
+      box1: {
+        src: '/assets/client_photo_3.webp',
+        alt: 'Dr. Aditi Modern Clinic Operatory',
+        tag: 'Modern Clinic Suite'
+      },
+      box2: {
+        src: '/assets/client_photo_4.webp',
+        alt: 'Dr. Aditi Precision Dental Procedure',
+        tag: 'Precision Care'
+      },
+      box3: {
+        src: '/assets/client_photo_5.webp',
+        alt: 'Dr. Aditi Dental Treatment Room',
+        tag: 'Hygienic Operatory'
+      }
+    }
+  }
+];
 
 export default function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isContentFading, setIsContentFading] = useState(false);
+  const [boxTransitionStep, setBoxTransitionStep] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
 
-  const slideImages = [
-    { src: '/assets/dr-aditi.png', title: 'Dr. Aditi Mishra', sub: 'MDS (KGMU Lucknow)' },
-    { src: '/assets/clinic_interior.png', title: 'Modern Reception Lounge', sub: 'Lucknow Center' },
-    { src: '/assets/dental_chair.png', title: 'Advanced Treatment Room', sub: 'Safe & Hygienic Setup' },
-    { src: '/assets/smile_consultation.png', title: 'Smile Assessment', sub: 'Honest Clinical Advice' },
-    { src: '/assets/dental_prosthetic.png', title: 'Custom Prosthetics', sub: 'Precise Maxillofacial Rehab' }
-  ];
+  const currentSlide = heroSlides[currentSlideIndex];
+
+  const handleNextSlide = () => {
+    setIsContentFading(true);
+    setBoxTransitionStep(1);
+
+    setTimeout(() => {
+      setBoxTransitionStep(2);
+    }, 140);
+
+    setTimeout(() => {
+      setBoxTransitionStep(3);
+    }, 280);
+
+    setTimeout(() => {
+      setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
+      setIsContentFading(false);
+      setBoxTransitionStep(0);
+    }, 480);
+  };
+
+  const goToSlide = (index) => {
+    if (index === currentSlideIndex) return;
+    setIsContentFading(true);
+    setBoxTransitionStep(1);
+    setTimeout(() => setBoxTransitionStep(2), 140);
+    setTimeout(() => setBoxTransitionStep(3), 280);
+
+    setTimeout(() => {
+      setCurrentSlideIndex(index);
+      setIsContentFading(false);
+      setBoxTransitionStep(0);
+    }, 480);
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slideImages.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [slideImages.length]);
+    if (isPaused) return;
+    timerRef.current = setInterval(() => {
+      handleNextSlide();
+    }, 6000);
 
-  const handleScrollToBooking = (e) => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [currentSlideIndex, isPaused]);
+
+  const handleScrollTo = (e, targetId) => {
     e.preventDefault();
-    const targetElement = document.querySelector('#booking');
+    const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      const headerOffset = 80;
+      const headerOffset = 95;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -34,68 +124,174 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="hero-section">
+    <section 
+      id="home" 
+      className="hero-section"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="container hero-container animate-fade-in">
-        <div className="hero-content">
+        {/* Left Side: Animated Rotating Content */}
+        <div className={`hero-content ${isContentFading ? 'content-fading' : 'content-active'}`}>
           <div className="review-badge">
             <div className="stars">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={16} fill="#C0A070" color="#C0A070" />
               ))}
             </div>
-            <span className="review-text">5.0 Star Rated (87+ Patient Reviews)</span>
+            <span className="review-text">{currentSlide.badge}</span>
           </div>
-          
+
           <h1 className="hero-title">
-            Complete Dental Care <br />
-            <span className="text-highlight">For You & Your Family</span>
+            {currentSlide.titleMain} <br />
+            <span className="text-highlight">{currentSlide.titleHighlight}</span>
           </h1>
-          
+
           <p className="hero-desc">
-            Experience premium, precision-driven dental treatments and advanced maxillofacial rehabilitation 
-            in Lucknow. Led by <strong>Dr. Aditi Mishra</strong>, a highly trained Prosthodontist and 
-            KGMU Alumna, we focus on honest, conservative care without unnecessary procedures.
+            {currentSlide.description}
           </p>
-          
-          <div className="hero-actions">
-            <a href="#booking" onClick={handleScrollToBooking} className="btn btn-secondary btn-lg">
-              <Calendar size={18} />
-              <span>Book Appointment Now</span>
-            </a>
-            <a href="tel:09208430808" className="btn btn-outline-gold btn-lg">
-              <Phone size={18} />
-              <span>Call +91 92084 30808</span>
-            </a>
-          </div>
-          
-          <div className="hero-subtext">
-            <span>📍 Vivek Khand 2, Gomti Nagar, Lucknow</span>
-          </div>
-        </div>
-        
-        <div className="hero-image-wrapper">
-          {/* Animated pulsing background glow */}
-          <div className="hero-glow-aura"></div>
-          
-          <div className="hero-image-frame">
-            <div className="frame-border"></div>
-            
-            {/* Slideshow element */}
-            <div className="hero-slideshow">
-              {slideImages.map((slide, index) => (
-                <img 
-                  key={index}
-                  src={slide.src} 
-                  alt={slide.title} 
-                  className={`hero-slide-img ${index === currentSlide ? 'active' : ''}`} 
-                />
+
+          {/* Screenshot 3-Column Info Box with Brown Border & White Combination */}
+          <div className="hero-info-card-wrapper">
+            {/* Dark brown blinking decorative dots on left edge */}
+            <div className="card-decor-dots" aria-hidden="true">
+              {[...Array(12)].map((_, i) => (
+                <span 
+                  key={i} 
+                  className="card-decor-dot" 
+                  style={{ animationDelay: `${(i % 6) * 0.16 + Math.floor(i / 6) * 0.08}s` }}
+                ></span>
               ))}
             </div>
-            
-            {/* Dynamic text badge overlay */}
-            <div className="image-badge">
-              <span className="badge-title">{slideImages[currentSlide].title}</span>
-              <span className="badge-sub">{slideImages[currentSlide].sub}</span>
+
+            <div className="hero-info-card">
+              {/* Column 1: Contact us */}
+              <a href="tel:09208430808" className="info-card-col">
+                <div className="info-icon-badge">
+                  <Phone size={20} />
+                </div>
+                <div className="info-text-group">
+                  <h4 className="info-title">Contact us</h4>
+                  <p className="info-line">+91 92084 30808</p>
+                  <p className="info-line">draditisdental@gmail.com</p>
+                </div>
+              </a>
+
+              <div className="info-divider"></div>
+
+              {/* Column 2: Our Hours */}
+              <div className="info-card-col">
+                <div className="info-icon-badge">
+                  <Clock size={20} />
+                </div>
+                <div className="info-text-group">
+                  <h4 className="info-title">Our Hours</h4>
+                  <p className="info-line">Mon – Sat: 11:00am – 8:00pm</p>
+                  <p className="info-line">Sunday: By Appointment</p>
+                </div>
+              </div>
+
+              <div className="info-divider"></div>
+
+              {/* Column 3: Location */}
+              <a 
+                href="https://maps.app.goo.gl/1ye8ETHSimo9SPKZn" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="info-card-col"
+              >
+                <div className="info-icon-badge">
+                  <MapPin size={20} />
+                </div>
+                <div className="info-text-group">
+                  <h4 className="info-title">Location</h4>
+                  <p className="info-line">Vivek Khand 2, Gomti Nagar</p>
+                  <p className="info-line">Lucknow, UP 226010</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Slide Indicator Dots */}
+          <div className="hero-slide-dots">
+            {heroSlides.map((slide, idx) => (
+              <button
+                key={slide.id}
+                onClick={() => goToSlide(idx)}
+                className={`hero-slide-dot ${idx === currentSlideIndex ? 'active' : ''}`}
+                aria-label={`Switch to Hero Slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side: 3-Image Collage with Staggered Transition */}
+        <div className="hero-collage-wrapper">
+          {/* Decorative Dotted Grid Matrix */}
+          <div className="collage-decor-dots" aria-hidden="true">
+            {[...Array(30)].map((_, i) => (
+              <span 
+                key={i} 
+                className="decor-dot"
+                style={{ animationDelay: `${(i % 6) * 0.14 + Math.floor(i / 6) * 0.1}s` }}
+              ></span>
+            ))}
+          </div>
+
+          {/* Decorative Floating Soft Background Shapes */}
+          <div className="collage-backdrop-shape shape-top" aria-hidden="true"></div>
+          <div className="collage-backdrop-shape shape-bottom" aria-hidden="true"></div>
+
+          <div className="hero-collage-grid">
+            {/* Box 1: Large Main Left Image */}
+            <div 
+              className={`collage-box collage-box-main ${boxTransitionStep >= 1 ? 'box-fading' : 'box-active'}`}
+            >
+              <img 
+                src={currentSlide.images.box1.src} 
+                alt={currentSlide.images.box1.alt} 
+                className="collage-img" 
+                loading="eager"
+                referrerPolicy="no-referrer"
+              />
+              <div className="collage-box-tag">
+                <span>{currentSlide.images.box1.tag}</span>
+              </div>
+            </div>
+
+            {/* Right Column: Top and Bottom Images */}
+            <div className="collage-column-right">
+              {/* Box 2: Top Right Image */}
+              <div 
+                className={`collage-box collage-box-top ${boxTransitionStep >= 2 ? 'box-fading' : 'box-active'}`}
+              >
+                <img 
+                  src={currentSlide.images.box2.src} 
+                  alt={currentSlide.images.box2.alt} 
+                  className="collage-img" 
+                  loading="eager"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="collage-box-tag">
+                  <span>{currentSlide.images.box2.tag}</span>
+                </div>
+              </div>
+
+              {/* Box 3: Bottom Right Image */}
+              <div 
+                className={`collage-box collage-box-bottom ${boxTransitionStep >= 3 ? 'box-fading' : 'box-active'}`}
+              >
+                <img 
+                  src={currentSlide.images.box3.src} 
+                  alt={currentSlide.images.box3.alt} 
+                  className="collage-img" 
+                  loading="eager"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="collage-box-tag">
+                  <span>{currentSlide.images.box3.tag}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
