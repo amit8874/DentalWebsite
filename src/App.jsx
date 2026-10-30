@@ -1,79 +1,130 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import MediaGallery from './components/MediaGallery';
-import SmileHub from './components/SmileHub';
+import Services from './components/Services';
+import WhyAditiDental from './components/WhyAditiDental';
 import About from './components/About';
 import Testimonials from './components/Testimonials';
 import BookingForm from './components/BookingForm';
 import ContactInfo from './components/ContactInfo';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import ServiceDetailPage from './components/ServiceDetailPage';
+import WelcomeVideoModal from './components/WelcomeVideoModal';
+import { treatmentsData } from './data/treatmentsData';
 
 export default function App() {
-  const containerRef = useRef(null);
+  const [activeServiceId, setActiveServiceId] = useState(null);
 
-  // Stacking deck-of-cards calculation: ensures 100% full section visibility
+  // Parse URL hash on mount and on hashchange for deep-linking & back/forward navigation
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const updateStickyOffsets = () => {
-      // On mobile screens, natural flow prevents any overlapping or bottom cut-offs
-      if (window.innerWidth <= 768) {
-        Array.from(container.children).forEach((child) => {
-          child.style.top = '';
-        });
-        return;
-      }
-
-      const headerHeight = 74;
-      const vh = window.innerHeight;
-      const sections = Array.from(container.children);
-
-      sections.forEach((section, index) => {
-        if (index === 0) {
-          // Hero section sits flush at top: 0 directly under the header
-          section.style.top = '0px';
+    const handleHashCheck = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#/treatment/') || hash.startsWith('#/service/')) {
+        const id = hash.replace('#/treatment/', '').replace('#/service/', '').trim();
+        if (treatmentsData[id]) {
+          setActiveServiceId(id);
           return;
         }
-        const sectionHeight = section.offsetHeight;
-        // If a section is taller than available viewport height, pin when its bottom reaches screen bottom so the user reads full content
-        if (sectionHeight > vh - headerHeight) {
-          section.style.top = `${vh - sectionHeight}px`;
-        } else {
-          section.style.top = `${headerHeight}px`;
-        }
-      });
+      }
+      // If returning to a normal hash or empty hash, clear active service
+      if (!hash.startsWith('#/treatment/') && !hash.startsWith('#/service/')) {
+        setActiveServiceId(null);
+      }
     };
 
-    updateStickyOffsets();
-    window.addEventListener('resize', updateStickyOffsets);
-
-    // Re-check after images/fonts settle
-    const t1 = setTimeout(updateStickyOffsets, 300);
-    const t2 = setTimeout(updateStickyOffsets, 1000);
-
-    return () => {
-      window.removeEventListener('resize', updateStickyOffsets);
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    handleHashCheck();
+    window.addEventListener('hashchange', handleHashCheck);
+    return () => window.removeEventListener('hashchange', handleHashCheck);
   }, []);
+
+  const handleSelectService = (id) => {
+    setActiveServiceId(id);
+    window.location.hash = `#/treatment/${id}`;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleBackToHome = () => {
+    setActiveServiceId(null);
+    window.location.hash = '#services';
+    setTimeout(() => {
+      const targetElement = document.querySelector('#services');
+      if (targetElement) {
+        const headerOffset = 95;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 50);
+  };
+
+  const handleNavigateHome = (targetHref) => {
+    if (activeServiceId) {
+      setActiveServiceId(null);
+      window.location.hash = targetHref;
+      setTimeout(() => {
+        const targetElement = document.querySelector(targetHref);
+        if (targetElement) {
+          const headerOffset = 95;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      }, 50);
+    } else {
+      const targetElement = document.querySelector(targetHref);
+      if (targetElement) {
+        const headerOffset = 95;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <>
-      <Header />
-      <main ref={containerRef} className="deck-stack-container" style={{ flexGrow: 1 }}>
-        <Hero />
-        <MediaGallery />
-        <SmileHub />
-        <About />
-        <Testimonials />
-        <BookingForm />
-        <ContactInfo />
-        <Footer />
-      </main>
+      <WelcomeVideoModal />
+      <Header onNavigateHome={handleNavigateHome} />
+      
+      {activeServiceId ? (
+        // Dedicated Multi-Page Treatment Detail View
+        <main className="treatment-page-wrapper" style={{ flexGrow: 1, minHeight: '80vh' }}>
+          <ServiceDetailPage 
+            serviceId={activeServiceId} 
+            onBack={handleBackToHome}
+            onBookService={(serviceName) => {
+              setActiveServiceId(null);
+              window.location.hash = '#booking';
+              setTimeout(() => {
+                const bookingEl = document.querySelector('#booking');
+                if (bookingEl) {
+                  const headerOffset = 95;
+                  const elementPosition = bookingEl.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+              }, 60);
+            }}
+          />
+          <Footer />
+        </main>
+      ) : (
+        // Clean Standard Vertical Page Scroll (No Overlapping Sticky Transition)
+        <main className="site-main" style={{ flexGrow: 1 }}>
+          <Hero />
+          <Services onSelectService={handleSelectService} />
+          <WhyAditiDental />
+          <About />
+          <Testimonials />
+          <BookingForm />
+          <ContactInfo />
+          <Footer />
+        </main>
+      )}
+
       <FloatingWhatsApp />
     </>
   );

@@ -31,7 +31,7 @@ export default function About() {
         <div className="about-image-column">
           <div className="about-photo-wrapper">
             <img 
-              src="/assets/dr-aditi.png" 
+              src="/assets/about-section.jpeg" 
               alt="Dr. Aditi Mishra" 
               className="about-photo"
             />

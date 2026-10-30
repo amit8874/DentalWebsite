@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Clock, MapPin, Star } from 'lucide-react';
+import { Phone, Clock, MapPin } from 'lucide-react';
 
 const heroSlides = [
   {
     id: 1,
-    badge: '5.0 Star Rated (87+ Patient Reviews)',
     titleMain: 'A better life starts with a',
     titleHighlight: 'beautiful smile',
     description:
@@ -12,25 +11,24 @@ const heroSlides = [
     subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
     images: {
       box1: {
-        src: '/assets/client_photo_1.webp',
-        alt: "Dr. Aditi's Dental Clinic Treatment",
-        tag: 'Clinic Treatment Suite'
+        src: '/assets/dental_chair.png',
+        alt: 'Modern Ergonomic Dental Chair Suite',
+        tag: 'Modern Dental Chair'
       },
       box2: {
-        src: '/assets/dr-aditi.png',
-        alt: 'Dr. Aditi - Prosthodontist & Implantologist',
-        tag: 'Dr. Aditi'
+        src: '/assets/client_photo_2.webp',
+        alt: 'Sterile Operatory Setup',
+        tag: 'Sterile Operatory'
       },
       box3: {
-        src: '/assets/client_photo_2.webp',
-        alt: 'Dr. Aditi Advanced Setup',
-        tag: 'Advanced Setup'
+        src: '/assets/client_photo_1.webp',
+        alt: "Dr. Aditi's Treatment Suite",
+        tag: 'Treatment Suite'
       }
     }
   },
   {
     id: 2,
-    badge: '5.0 Star Rated (87+ Patient Reviews)',
     titleMain: 'Precision implants &',
     titleHighlight: 'maxillofacial excellence',
     description:
@@ -38,19 +36,19 @@ const heroSlides = [
     subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
     images: {
       box1: {
-        src: '/assets/client_photo_3.webp',
-        alt: 'Dr. Aditi Modern Clinic Operatory',
-        tag: 'Modern Clinic Suite'
+        src: '/assets/dental-working-2.PNG',
+        alt: 'Dr. Aditi Performing Clinical Treatment',
+        tag: 'Dental Working'
       },
       box2: {
-        src: '/assets/client_photo_4.webp',
-        alt: 'Dr. Aditi Precision Dental Procedure',
-        tag: 'Precision Care'
+        src: '/assets/dental-working-3.jpeg',
+        alt: 'Advanced Dental Working & Equipment',
+        tag: 'Clinical Equipment'
       },
       box3: {
-        src: '/assets/client_photo_5.webp',
-        alt: 'Dr. Aditi Dental Treatment Room',
-        tag: 'Hygienic Operatory'
+        src: '/assets/IMG_9692.JPG.jpeg',
+        alt: 'Dr. Aditi In-Clinic Consultation',
+        tag: 'Clinical Consultation'
       }
     }
   }
@@ -133,15 +131,6 @@ export default function Hero() {
       <div className="container hero-container animate-fade-in">
         {/* Left Side: Animated Rotating Content */}
         <div className={`hero-content ${isContentFading ? 'content-fading' : 'content-active'}`}>
-          <div className="review-badge">
-            <div className="stars">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} fill="#C0A070" color="#C0A070" />
-              ))}
-            </div>
-            <span className="review-text">{currentSlide.badge}</span>
-          </div>
-
           <h1 className="hero-title">
             {currentSlide.titleMain} <br />
             <span className="text-highlight">{currentSlide.titleHighlight}</span>
@@ -157,7 +146,8 @@ export default function Hero() {
             <div className="card-decor-dots" aria-hidden="true">
               {[...Array(12)].map((_, i) => (
                 <span 
-                  key={i} 
+                  key={i 
+} 
                   className="card-decor-dot" 
                   style={{ animationDelay: `${(i % 6) * 0.16 + Math.floor(i / 6) * 0.08}s` }}
                 ></span>
@@ -179,15 +169,15 @@ export default function Hero() {
 
               <div className="info-divider"></div>
 
-              {/* Column 2: Our Hours */}
+              {/* Column 2: Our Hours (11-2, 4-8) */}
               <div className="info-card-col">
                 <div className="info-icon-badge">
                   <Clock size={20} />
                 </div>
                 <div className="info-text-group">
                   <h4 className="info-title">Our Hours</h4>
-                  <p className="info-line">Mon – Sat: 11:00am – 8:00pm</p>
-                  <p className="info-line">Sunday: By Appointment</p>
+                  <p className="info-line">Mon – Sat: 11:00am – 2:00pm</p>
+                  <p className="info-line">4:00pm – 8:00pm</p>
                 </div>
               </div>
 

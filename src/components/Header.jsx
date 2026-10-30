@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Calendar, Menu, X } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ onNavigateHome }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,6 +29,12 @@ export default function Header() {
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
+
+    if (onNavigateHome) {
+      onNavigateHome(href);
+      return;
+    }
+
     const targetElement = document.querySelector(href);
     if (targetElement) {
       const headerOffset = 95;

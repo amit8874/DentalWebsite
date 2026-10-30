@@ -1,0 +1,50 @@
+[
+  {
+    "id": "DaxltVQscQK",
+    "name": "reel_1",
+    "title": "Flawless Smile Transformation",
+    "desc": "Precision aesthetic makeover and alignment at Kosmic Dental Clinic.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DaxltVQscQK/"
+  },
+  {
+    "id": "DcNmo0rsWo0",
+    "name": "reel_2",
+    "title": "Modern Clinic Experience",
+    "desc": "Step inside our welcoming operatory suites and comfortable environment.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DcNmo0rsWo0/"
+  },
+  {
+    "id": "DZ2esGYs62o",
+    "name": "reel_3",
+    "title": "Advanced Dental Implants",
+    "desc": "Permanent, lifelike tooth replacement with computer-guided implantology.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DZ2esGYs62o/"
+  },
+  {
+    "id": "DXq3Tj_jDII",
+    "name": "reel_4",
+    "title": "Gentle & Painless Dentistry",
+    "desc": "Relaxed, anxiety-free treatments with patient comfort as our #1 priority.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DXq3Tj_jDII/"
+  },
+  {
+    "id": "DehNyKcjlUI",
+    "name": "reel_5",
+    "title": "Laser Dentistry & Care",
+    "desc": "Minimally invasive gum care and tissue healing with modern dental lasers.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DehNyKcjlUI/"
+  },
+  {
+    "id": "DOGfx_PjCo4",
+    "name": "reel_6",
+    "title": "Patient Testimonial & Joy",
+    "desc": "Hear how our comprehensive dental care restored true confidence and smiles.",
+    "thumbnail": "/assets/client_photo_1.webp",
+    "instagramUrl": "https://www.instagram.com/reel/DOGfx_PjCo4/"
+  }
+]

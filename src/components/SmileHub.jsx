@@ -1,39 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Sparkles, RotateCcw, Calendar, Info, Activity,
-  ArrowRight, ShieldCheck, HeartPulse
+  ArrowRight, ShieldCheck, HeartPulse, CheckCircle2 
 } from 'lucide-react';
 
 export default function SmileHub() {
+  // ==========================================
+  // SMILE STUDIO STATE
+  // ==========================================
   const [activeTab, setActiveTab] = useState('slider');
 
   // Slider State & Refs
   const [sliderPos, setSliderPos] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
+  const [isSliderDragging, setIsSliderDragging] = useState(false);
+  const sliderContainerRef = useRef(null);
 
-  const handleMove = (clientX) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
+  const handleSliderMove = (clientX) => {
+    if (!sliderContainerRef.current) return;
+    const rect = sliderContainerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setSliderPos(percentage);
   };
 
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    handleMove(e.clientX);
+  const handleSliderMouseMove = (e) => {
+    if (!isSliderDragging) return;
+    handleSliderMove(e.clientX);
   };
 
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
+  const handleSliderTouchMove = (e) => {
+    if (!isSliderDragging) return;
     if (e.touches && e.touches[0]) {
-      handleMove(e.touches[0].clientX);
+      handleSliderMove(e.touches[0].clientX);
     }
   };
 
   useEffect(() => {
-    const handleMouseUp = () => setIsDragging(false);
+    const handleMouseUp = () => setIsSliderDragging(false);
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('touchend', handleMouseUp);
     return () => {
@@ -98,16 +101,62 @@ export default function SmileHub() {
     }
   ];
 
-  const handleSelectOption = (key, val) => {
-    setAnswers({
-      ...answers,
-      [key]: val
-    });
+  const handleSelectOption = (key, value) => {
+    setAnswers(prev => ({ ...prev, [key]: value }));
+  };
+
+  const calculateResults = () => {
+    let finalScore = 100;
+    
+    // Deduct penalties
+    const sensOpt = quizSteps[1].options.find(o => o.value === answers.sensitivity);
+    if (sensOpt) finalScore -= sensOpt.penalty;
+
+    const jawOpt = quizSteps[2].options.find(o => o.value === answers.jaw);
+    if (jawOpt) finalScore -= jawOpt.penalty;
+
+    const examOpt = quizSteps[3].options.find(o => o.value === answers.examination);
+    if (examOpt) finalScore -= examOpt.penalty;
+
+    setScore(Math.max(20, finalScore));
+
+    // Determine tailored recommendation
+    if (answers.jaw === 'locking' || answers.jaw === 'clenching') {
+      setRecommendation({
+        title: 'TMJ & Maxillofacial Occlusion Therapy',
+        desc: 'Specialized evaluation of joint mechanics, night splints, and bite equilibration to relieve chronic joint strain and protect enamel from bruxism wear.',
+        serviceCode: 'tmd-splints',
+        icon: <Activity className="rec-icon" size={24} />
+      });
+    } else if (answers.goal === 'implants') {
+      setRecommendation({
+        title: 'Precision Dental Implantology',
+        desc: 'Permanent, lifelike tooth replacement with 3D guided precision to restore natural chewing power and prevent adjacent bone deterioration.',
+        serviceCode: 'dental-implants',
+        icon: <ShieldCheck className="rec-icon" size={24} />
+      });
+    } else if (answers.goal === 'cosmetic') {
+      setRecommendation({
+        title: 'Digital Smile Aesthetics & Veneers',
+        desc: 'Customized shade brightening, composite artistry, or porcelain veneers crafted according to your personal facial proportions.',
+        serviceCode: 'aesthetic-makeover',
+        icon: <Sparkles className="rec-icon" size={24} />
+      });
+    } else {
+      setRecommendation({
+        title: 'Comprehensive Preventive Oral Wellness',
+        desc: 'Ultrasonic micro-scaling, digital radiographic evaluation, and remineralization therapy to sustain healthy enamel and healthy gums.',
+        serviceCode: 'full-mouth-rehab',
+        icon: <HeartPulse className="rec-icon" size={24} />
+      });
+    }
+
+    setQuizFinished(true);
   };
 
   const handleNext = () => {
     if (currentStep < quizSteps.length - 1) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(prev => prev + 1);
     } else {
       calculateResults();
     }
@@ -115,70 +164,8 @@ export default function SmileHub() {
 
   const handlePrev = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(prev => prev - 1);
     }
-  };
-
-  const calculateResults = () => {
-    // 1. Calculate Score
-    let calculatedScore = 100;
-    
-    // Sensitivity penalty
-    const sensOpt = quizSteps[1].options.find(o => o.value === answers.sensitivity);
-    if (sensOpt) calculatedScore -= sensOpt.penalty;
-
-    // Jaw joint penalty
-    const jawOpt = quizSteps[2].options.find(o => o.value === answers.jaw);
-    if (jawOpt) calculatedScore -= jawOpt.penalty;
-
-    // Last exam penalty
-    const examOpt = quizSteps[3].options.find(o => o.value === answers.examination);
-    if (examOpt) calculatedScore -= examOpt.penalty;
-
-    calculatedScore = Math.max(30, calculatedScore);
-    setScore(calculatedScore);
-
-    // 2. Determine Recommendation based on primary goal category
-    const mainGoal = answers.goal; // cosmetic, implants, tmd, general
-    let treatment = {
-      title: '',
-      desc: '',
-      icon: <Sparkles size={24} />,
-      serviceCode: 'general'
-    };
-
-    if (mainGoal === 'cosmetic') {
-      treatment = {
-        title: 'Smile Designing & Custom Veneers',
-        desc: 'Based on your aesthetic goals, Dr. Aditi recommends a digital smile analysis to assess ultra-thin E-max porcelain veneers or cosmetic composite bonding. This restores alignment and brilliance conservatively.',
-        icon: <Sparkles size={24} />,
-        serviceCode: 'cosmetic'
-      };
-    } else if (mainGoal === 'implants') {
-      treatment = {
-        title: 'Dental Implants & Crown Restoration',
-        desc: 'For tooth replacement, titanium biocompatible implants offer permanent chewing stability and natural bone preservation. Dr. Aditi specializes in prosthetically-driven implant placement.',
-        icon: <Activity size={24} />,
-        serviceCode: 'implants'
-      };
-    } else if (mainGoal === 'tmd') {
-      treatment = {
-        title: 'TMD / TMJ Splint Therapy & Muscle Care',
-        desc: 'Your jaw joint symptoms suggest clenching or alignment strain. Dr. Aditi provides customized night splints, joint exercises, and bite alignment to protect your teeth and stop facial pain.',
-        icon: <ShieldCheck size={24} />,
-        serviceCode: 'tmd'
-      };
-    } else {
-      treatment = {
-        title: 'Comprehensive Consultation & Scaling',
-        desc: 'A clinical examination and ultrasonic scaling will resolve standard sensitivity issues, polish stains, and diagnose any hidden micro-decay before it advances. Conservative preventive care.',
-        icon: <HeartPulse size={24} />,
-        serviceCode: 'general'
-      };
-    }
-
-    setRecommendation(treatment);
-    setQuizFinished(true);
   };
 
   const handleResetQuiz = () => {
@@ -190,25 +177,25 @@ export default function SmileHub() {
     });
     setCurrentStep(0);
     setQuizFinished(false);
+    setScore(100);
+    setRecommendation(null);
   };
 
-  const handlePreFillAndBook = () => {
+  const handlePrefillBooking = () => {
     if (!recommendation) return;
     
-    // Create prefill data string
-    const goalLabel = quizSteps[0].options.find(o => o.value === answers.goal)?.label || '';
-    const sensLabel = quizSteps[1].options.find(o => o.value === answers.sensitivity)?.label || '';
-    const jawLabel = quizSteps[2].options.find(o => o.value === answers.jaw)?.label || '';
-    const examLabel = quizSteps[3].options.find(o => o.value === answers.examination)?.label || '';
+    const goalLabel = quizSteps[0].options.find(o => o.value === answers.goal)?.label || 'General Care';
+    const sensLabel = quizSteps[1].options.find(o => o.value === answers.sensitivity)?.label || 'None';
+    const jawLabel = quizSteps[2].options.find(o => o.value === answers.jaw)?.label || 'None';
+    const examLabel = quizSteps[3].options.find(o => o.value === answers.examination)?.label || 'Unknown';
 
-    const notesText = `Oral Health Assessment Pre-fill:
+    const notesText = `Patient Self-Assessment Summary:
 - Primary Goal: ${goalLabel}
 - Sensitivity: ${sensLabel}
 - Jaw clicking/tightness: ${jawLabel}
 - Last exam: ${examLabel}
 - Calculated Score: ${score}/100`;
 
-    // Dispatch custom event to communicate with BookingForm.jsx
     const event = new CustomEvent('prefillBooking', {
       detail: {
         service: recommendation.serviceCode,
@@ -217,7 +204,6 @@ export default function SmileHub() {
     });
     window.dispatchEvent(event);
 
-    // Smooth scroll to booking
     const bookingSection = document.querySelector('#booking');
     if (bookingSection) {
       const headerOffset = 80;
@@ -230,236 +216,251 @@ export default function SmileHub() {
     }
   };
 
-  // Dashoffset calculation for svg circle
   const radius = 56;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
   return (
-    <section id="smile-hub" className="smile-hub-section section-padding">
+    <section id="smile-hub" className="smile-studio-standalone-section section-padding">
       <div className="container">
         
-        <div className="section-header animate-fade-in">
-          <span className="section-tag">Interactive smile studio</span>
-          <h2 className="section-title">Explore Your Smile Potential</h2>
-          <p className="section-desc">
-            Try our interactive transformation simulator or take a quick 1-minute clinical self-assessment 
-            to receive customized treatment guidance directly from Dr. Aditi.
+        {/* Studio Header */}
+        <div className="studio-col-header text-center" style={{ marginBottom: '2.5rem' }}>
+          <span className="section-tag">Interactive Smile Studio</span>
+          <h2 className="studio-main-title">Explore Your Smile Potential</h2>
+          <p className="studio-main-desc" style={{ maxWidth: '680px', margin: '0 auto' }}>
+            Try our makeover simulator or take a quick 1-minute clinical self-assessment for customized guidance.
           </p>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="tabs-container animate-fade-in delay-1">
-          <button
-            onClick={() => setActiveTab('slider')}
-            className={`tab-btn ${activeTab === 'slider' ? 'active' : ''}`}
-          >
-            Smile Makeover Slider
-          </button>
-          <button
-            onClick={() => setActiveTab('quiz')}
-            className={`tab-btn ${activeTab === 'quiz' ? 'active' : ''}`}
-          >
-            Oral Health & Joint Assessment
-          </button>
-        </div>
+        {/* Center Container */}
+        <div className="studio-standalone-wrapper">
+          
+          {/* Navigation Tabs */}
+          <div className="tabs-container studio-tabs" style={{ justifyContent: 'center', marginBottom: '2rem' }}>
+            <button
+              onClick={() => setActiveTab('slider')}
+              className={`tab-btn ${activeTab === 'slider' ? 'active' : ''}`}
+              type="button"
+            >
+              Smile Makeover Slider
+            </button>
+            <button
+              onClick={() => setActiveTab('quiz')}
+              className={`tab-btn ${activeTab === 'quiz' ? 'active' : ''}`}
+              type="button"
+            >
+              Oral Health Assessment
+            </button>
+          </div>
 
-        <div className="smile-hub-card animate-fade-in delay-2">
-          {/* Decorative Spotlight Glows */}
-          <div className="glow-spotlight-top"></div>
-          <div className="glow-spotlight-bottom"></div>
+          <div className="smile-hub-card studio-card-box">
+            <div className="glow-spotlight-top"></div>
+            <div className="glow-spotlight-bottom"></div>
 
-          {activeTab === 'slider' && (
-            <div className="slider-container">
-              <div 
-                ref={containerRef}
-                className="slider-wrapper"
-                onMouseMove={handleMouseMove}
-                onTouchMove={handleTouchMove}
-                onMouseDown={() => setIsDragging(true)}
-                onTouchStart={() => setIsDragging(true)}
-              >
-                {/* Background Image: After */}
-                <img 
-                  src="/assets/smile_after.png" 
-                  alt="Smile Transformation After" 
-                  className="slider-img"
-                />
-                
-                {/* Foreground Image: Before */}
+            {activeTab === 'slider' && (
+              <div className="slider-container">
                 <div 
-                  className="slider-overlay-container" 
-                  style={{ width: `${sliderPos}%` }}
+                  ref={sliderContainerRef}
+                  className="slider-wrapper"
+                  onMouseMove={handleSliderMouseMove}
+                  onTouchMove={handleSliderTouchMove}
+                  onMouseDown={() => setIsSliderDragging(true)}
+                  onTouchStart={() => setIsSliderDragging(true)}
                 >
+                  {/* Background Image: After */}
                   <img 
-                    src="/assets/smile_before.png" 
-                    alt="Smile Transformation Before" 
+                    src="/assets/smile_after.png" 
+                    alt="Smile Transformation After" 
                     className="slider-img"
-                    style={{ width: containerRef.current?.getBoundingClientRect().width }}
                   />
-                  <span className="slider-label before">Before Treatment</span>
-                </div>
-
-                <span className="slider-label after">After Veneers</span>
-
-                {/* Divider Line */}
-                <div 
-                  className="slider-divider" 
-                  style={{ left: `${sliderPos}%` }}
-                >
-                  <div className="slider-handle">
-                    <Activity size={18} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="slider-instructions">
-                <Info size={16} className="text-highlight" />
-                <span>Drag the slider handle left and right to visualize cosmetic restoration</span>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'quiz' && (
-            <div className="quiz-container">
-              {!quizFinished ? (
-                <>
-                  {/* Progress Indicator */}
-                  <div className="quiz-progress-wrapper">
-                    <div className="quiz-progress-info">
-                      <span>Step {currentStep + 1} of {quizSteps.length}</span>
-                      <span>{Math.round(((currentStep) / quizSteps.length) * 100)}% Complete</span>
-                    </div>
-                    <div className="quiz-progress-bar-bg">
-                      <div 
-                        className="quiz-progress-bar-fill"
-                        style={{ width: `${((currentStep + 1) / quizSteps.length) * 100}%` }}
-                      ></div>
-                    </div>
+                  
+                  {/* Foreground Image: Before */}
+                  <div 
+                    className="slider-overlay-container" 
+                    style={{ width: `${sliderPos}%` }}
+                  >
+                    <img 
+                      src="/assets/smile_before.png" 
+                      alt="Smile Transformation Before" 
+                      className="slider-img"
+                      style={{ width: sliderContainerRef.current?.getBoundingClientRect().width }}
+                    />
+                    <span className="slider-label before">Before Treatment</span>
                   </div>
 
-                  {/* Question */}
-                  <div className="quiz-step-content" key={currentStep}>
-                    <h3 className="quiz-question">{quizSteps[currentStep].question}</h3>
-                    
-                    <div className="quiz-options-list">
-                      {quizSteps[currentStep].options.map((opt, idx) => {
-                        const isSelected = answers[quizSteps[currentStep].key] === opt.value;
-                        return (
-                          <div 
-                            key={idx}
+                  <span className="slider-label after">After Makeover</span>
+
+                  {/* Interactive Divider Handle */}
+                  <div 
+                    className="slider-divider" 
+                    style={{ left: `${sliderPos}%` }}
+                  >
+                    <div className="slider-handle">
+                      <div className="handle-arrows">
+                        <span>‹</span>
+                        <span>›</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="slider-footer-row">
+                  <span className="slider-instructions">
+                    ‹ Drag slider to preview aesthetic makeover results ›
+                  </span>
+                  <button 
+                    onClick={() => setSliderPos(50)}
+                    className="btn-reset-slider"
+                    type="button"
+                    title="Reset slider to center"
+                  >
+                    <RotateCcw size={14} />
+                    <span>Reset</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'quiz' && (
+              <div className="quiz-container">
+                {!quizFinished ? (
+                  <>
+                    <div className="quiz-progress-wrapper">
+                      <div className="quiz-progress-info">
+                        <span>Question {currentStep + 1} of {quizSteps.length}</span>
+                        <span>{Math.round(((currentStep + 1) / quizSteps.length) * 100)}% Complete</span>
+                      </div>
+                      <div className="quiz-progress-bar-bg">
+                        <div 
+                          className="quiz-progress-bar-fill"
+                          style={{ width: `${((currentStep + 1) / quizSteps.length) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div className="quiz-step-content">
+                      <h4 className="quiz-question">{quizSteps[currentStep].question}</h4>
+                      
+                      <div className="quiz-options-list">
+                        {quizSteps[currentStep].options.map((opt) => (
+                          <button
+                            key={opt.value + opt.label}
+                            type="button"
+                            className={`quiz-option-card ${answers[quizSteps[currentStep].key] === opt.value ? 'selected' : ''}`}
                             onClick={() => handleSelectOption(quizSteps[currentStep].key, opt.value)}
-                            className={`quiz-option-card ${isSelected ? 'selected' : ''}`}
                           >
                             <div className="quiz-option-indicator"></div>
                             <span className="quiz-option-text">{opt.label}</span>
-                          </div>
-                        );
-                      })}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="quiz-navigation">
+                        <button
+                          type="button"
+                          onClick={handlePrev}
+                          disabled={currentStep === 0}
+                          className={`btn btn-outline ${currentStep === 0 ? 'disabled' : ''}`}
+                          style={{ padding: '0.45rem 0.95rem', fontSize: '0.85rem' }}
+                        >
+                          Back
+                        </button>
+                        
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          disabled={!answers[quizSteps[currentStep].key]}
+                          className="btn btn-primary"
+                          style={{ padding: '0.45rem 1.15rem', fontSize: '0.85rem' }}
+                        >
+                          <span>{currentStep === quizSteps.length - 1 ? 'Analyze Health' : 'Continue'}</span>
+                          <ArrowRight size={15} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </>
+                ) : (
+                  <div className="results-card">
+                    <div className="results-header-flex">
+                      <div className="score-circle-container">
+                        <svg className="score-circle-svg" width="128" height="128">
+                          <circle
+                            className="score-circle-bg"
+                            strokeWidth="8"
+                            stroke="var(--border-color)"
+                            fill="transparent"
+                            r={radius}
+                            cx="64"
+                            cy="64"
+                          />
+                          <circle
+                            className="score-circle-bar"
+                            strokeWidth="8"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={strokeDashoffset}
+                            strokeLinecap="round"
+                            stroke="var(--accent-teal)"
+                            fill="transparent"
+                            r={radius}
+                            cx="64"
+                            cy="64"
+                          />
+                        </svg>
+                        <div className="score-circle-content">
+                          <span className="score-val">{score}</span>
+                          <span className="score-max">/100</span>
+                        </div>
+                      </div>
 
-                  {/* Navigation */}
-                  <div className="quiz-navigation">
-                    <button 
-                      onClick={handlePrev}
-                      className="btn btn-outline-gold"
-                      disabled={currentStep === 0}
-                      style={{ opacity: currentStep === 0 ? 0.4 : 1, cursor: currentStep === 0 ? 'not-allowed' : 'pointer' }}
-                    >
-                      <RotateCcw size={16} />
-                      <span>Back</span>
-                    </button>
-
-                    <button 
-                      onClick={handleNext}
-                      className="btn btn-secondary"
-                      disabled={!answers[quizSteps[currentStep].key]}
-                      style={{ 
-                        opacity: !answers[quizSteps[currentStep].key] ? 0.5 : 1, 
-                        cursor: !answers[quizSteps[currentStep].key] ? 'not-allowed' : 'pointer' 
-                      }}
-                    >
-                      <span>{currentStep === quizSteps.length - 1 ? 'Calculate Score' : 'Next Step'}</span>
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                /* Results Display */
-                <div className="results-card">
-                  <div className="results-header-flex">
-                    <div className="score-circle-container">
-                      <svg className="score-circle-svg">
-                        <circle className="score-circle-bg" cx="65" cy="65" r={radius} />
-                        <circle 
-                          className="score-circle-progress" 
-                          cx="65" 
-                          cy="65" 
-                          r={radius} 
-                          strokeDasharray={circumference}
-                          strokeDashoffset={strokeDashoffset}
-                        />
-                      </svg>
-                      <div className="score-text-overlay">
-                        <span className="score-number">{score}</span>
-                        <span className="score-label">Score</span>
+                      <div className="score-feedback">
+                        <span className="feedback-tag">Assessment Complete</span>
+                        <h4 className="feedback-title">
+                          {score >= 85 ? 'Excellent Dental Baseline' : score >= 65 ? 'Moderate Maintenance Needed' : 'Clinical Attention Recommended'}
+                        </h4>
+                        <p className="feedback-desc">
+                          Based on your goals and symptoms, our clinical algorithm identified the ideal tailored protocol.
+                        </p>
                       </div>
                     </div>
 
-                    <div className="results-intro-text">
-                      <span className="results-score-status">
-                        {score >= 85 ? 'Excellent' : score >= 65 ? 'Moderate Need' : 'Consultation Recommended'}
-                      </span>
-                      <h3 className="results-score-title">Your Smile Health Summary</h3>
-                      <p>
-                        Our assessment is complete. Below is your clinical recommendation based on Dr. Aditi's 
-                        standards of conservative, patient-centered dentistry.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="results-body">
-                    <div className="advice-box">
-                      <h4 className="advice-box-title">
-                        <Info size={18} />
-                        <span>Conservative Care Perspective</span>
-                      </h4>
-                      <p className="advice-box-desc">
-                        "At our Lucknow clinic, we strictly reject unnecessary treatments. If your teeth are healthy, 
-                        we advocate keeping them natural. We will only recommend procedures that preserve structure and 
-                        improve your health or confidence."
-                      </p>
-                    </div>
-
-                    {recommendation && (
-                      <div className="recommended-treatment-panel animate-fade-in">
-                        <div className="treatment-panel-icon">
-                          {recommendation.icon}
-                        </div>
-                        <div className="treatment-panel-content">
-                          <span className="treatment-panel-label">Recommended Treatment Pathway</span>
-                          <h4 className="treatment-panel-name">{recommendation.title}</h4>
-                          <p className="treatment-panel-desc">{recommendation.desc}</p>
-                        </div>
+                    <div className="recommendation-box">
+                      <div className="rec-icon-badge">
+                        {recommendation?.icon}
                       </div>
-                    )}
-                  </div>
+                      <div className="rec-content">
+                        <span className="rec-label">Recommended Dental Path</span>
+                        <h4 className="rec-title">{recommendation?.title}</h4>
+                        <p className="rec-desc">{recommendation?.desc}</p>
+                      </div>
+                    </div>
 
-                  <div className="results-actions">
-                    <button onClick={handleResetQuiz} className="btn btn-outline-gold">
-                      <RotateCcw size={16} />
-                      <span>Retake Quiz</span>
-                    </button>
-                    <button onClick={handlePreFillAndBook} className="btn btn-secondary">
-                      <Calendar size={16} />
-                      <span>Prefill & Request Slot</span>
-                    </button>
+                    <div className="results-actions">
+                      <button
+                        type="button"
+                        onClick={handleResetQuiz}
+                        className="btn btn-outline"
+                        style={{ padding: '0.55rem 0.95rem', fontSize: '0.85rem' }}
+                      >
+                        Retake Quiz
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handlePrefillBooking}
+                        className="btn btn-primary"
+                        style={{ padding: '0.55rem 1.15rem', fontSize: '0.85rem' }}
+                      >
+                        <Calendar size={16} />
+                        <span>Book Assessment</span>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )}
+                )}
+              </div>
+            )}
+
+          </div>
+
         </div>
 
       </div>

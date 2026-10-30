@@ -7,7 +7,7 @@ export default function BookingForm() {
     phone: '',
     service: 'general',
     date: '',
-    timeSlot: '11:00-13:00',
+    timeSlot: '11:00-14:00',
     notes: ''
   });
 
@@ -40,8 +40,7 @@ export default function BookingForm() {
   ];
 
   const timeSlots = [
-    { value: '11:00-13:00', label: 'Morning (11:00 AM - 01:00 PM)' },
-    { value: '13:00-15:00', label: 'Early Afternoon (01:00 PM - 03:00 PM)' },
+    { value: '11:00-14:00', label: 'Morning (11:00 AM - 02:00 PM)' },
     { value: '16:00-18:00', label: 'Late Afternoon (04:00 PM - 06:00 PM)' },
     { value: '18:00-20:00', label: 'Evening (06:00 PM - 08:00 PM)' }
   ];
@@ -101,7 +100,7 @@ export default function BookingForm() {
       phone: '',
       service: 'general',
       date: '',
-      timeSlot: '11:00-13:00',
+      timeSlot: '11:00-14:00',
       notes: ''
     });
     setIsSubmitted(false);
