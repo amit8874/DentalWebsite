@@ -243,14 +243,21 @@ button, input, select, textarea {
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.6s; }
 
-/* Header Styling */
-.site-header {
+/* Header Master Wrapper */
+.site-header-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 88px;
   z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/* Header Styling */
+.site-header {
+  position: relative;
+  width: 100%;
+  height: 88px;
   background-color: rgba(252, 250, 247, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -459,6 +466,16 @@ button, input, select, textarea {
   flex-direction: column;
 }
 
+.site-header-wrapper.has-ribbon .mobile-nav-overlay {
+  top: 126px;
+  height: calc(100vh - 126px);
+}
+
+.site-header-wrapper.no-ribbon .mobile-nav-overlay {
+  top: 88px;
+  height: calc(100vh - 88px);
+}
+
 .mobile-nav {
   display: flex;
   flex-direction: column;
@@ -508,7 +525,12 @@ button, input, select, textarea {
     height: 68px;
   }
 
-  .mobile-nav-overlay {
+  .site-header-wrapper.has-ribbon .mobile-nav-overlay {
+    top: 116px;
+    height: calc(100vh - 116px);
+  }
+
+  .site-header-wrapper.no-ribbon .mobile-nav-overlay {
     top: 78px;
     height: calc(100vh - 78px);
   }
@@ -516,13 +538,25 @@ button, input, select, textarea {
 
 /* Hero Section Styling */
 .hero-section {
-  padding-top: 92px;
+  padding-top: clamp(126px, 12vw, 138px);
   padding-bottom: 1.25rem;
   background-color: #FCFAF7;
   background: linear-gradient(180deg, #F4EFE6 0%, #FCFAF7 100%);
   overflow: hidden;
   position: relative;
   border-bottom: 2px solid #D4C8B8;
+}
+
+.site-header-wrapper.no-ribbon + main .hero-section {
+  padding-top: 92px;
+}
+
+.treatment-page-wrapper {
+  padding-top: clamp(126px, 12vw, 138px);
+}
+
+.site-header-wrapper.no-ribbon + .treatment-page-wrapper {
+  padding-top: 92px;
 }
 
 .hero-container {
@@ -5810,5 +5844,594 @@ a.info-card-col:hover .info-title {
     width: 100%;
     justify-content: center;
     padding: 0.7rem 1.6rem;
+  }
+}
+
+
+/* ==========================================================================
+   DIWALI FESTIVE OFFER: TOP RIBBON, MODAL POP-UP & FLOATING TAB
+   ========================================================================== */
+
+/* 1. Top Festive Announcement Ribbon */
+.top-festive-ribbon {
+  background: linear-gradient(90deg, #24140D 0%, #3B2014 35%, #4A2819 50%, #3B2014 65%, #24140D 100%);
+  color: #FFFFFF;
+  border-bottom: 1.5px solid #C0A070;
+  box-shadow: 0 2px 12px rgba(36, 20, 13, 0.35);
+  font-size: 0.88rem;
+  padding: 0.42rem 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  z-index: 1001;
+}
+
+.top-festive-ribbon:hover {
+  background: linear-gradient(90deg, #2D1A10 0%, #442517 35%, #552E1C 50%, #442517 65%, #2D1A10 100%);
+}
+
+.festive-ribbon-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-left: clamp(1rem, 2.5vw, 2.5rem);
+  padding-right: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+.festive-ribbon-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.ribbon-diya {
+  font-size: 1.15rem;
+  animation: diyaGlow 2.4s infinite ease-in-out;
+  display: inline-block;
+  line-height: 1;
+}
+
+@keyframes diyaGlow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4));
+  }
+  50% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(255, 190, 40, 0.9));
+  }
+}
+
+.ribbon-badge {
+  background: linear-gradient(135deg, #C0A070 0%, #E7D5B8 100%);
+  color: #24140D;
+  font-weight: 800;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.ribbon-text {
+  color: #F8EFE4;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.ribbon-text strong {
+  color: #FFDDA6;
+  font-weight: 700;
+}
+
+.ribbon-tag-sub {
+  background: rgba(255, 255, 255, 0.12);
+  color: #E6DFD3;
+  font-size: 0.72rem;
+  padding: 1px 7px;
+  border-radius: 20px;
+  border: 1px solid rgba(192, 160, 112, 0.4);
+}
+
+.festive-ribbon-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.ribbon-cta-btn {
+  background: #C0A070;
+  color: #24140D;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 0.28rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #D9BF97;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.ribbon-cta-btn:hover {
+  background: #D9BF97;
+  color: #1A0D08;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(192, 160, 112, 0.4);
+}
+
+.ribbon-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ribbon-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+}
+
+/* 2. Festive Nav Link Styling in Header */
+.nav-link.nav-link-festive {
+  background: rgba(192, 160, 112, 0.12);
+  border: 1px solid rgba(192, 160, 112, 0.45);
+  border-radius: 20px;
+  padding: 0.35rem 0.85rem !important;
+  color: #2D1A12 !important;
+  font-weight: 700 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.25s ease;
+}
+
+.nav-link.nav-link-festive:hover {
+  background: rgba(192, 160, 112, 0.24);
+  border-color: #C0A070;
+  transform: translateY(-1px);
+}
+
+.festive-nav-sparkle {
+  color: #C0A070;
+  animation: pulseSparkle 2s infinite ease-in-out;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% { opacity: 0.7; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.nav-offer-tag {
+  background: #2D1A12;
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  letter-spacing: 0.03em;
+  border: 1px solid #C0A070;
+}
+
+/* Mobile Festive Nav Link */
+.mobile-festive-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(192, 160, 112, 0.1);
+  padding: 0.65rem 0.85rem !important;
+  border-radius: 8px;
+  border-left: 3px solid #C0A070 !important;
+}
+
+.mobile-nav-link-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-diya {
+  font-size: 1.1rem;
+}
+
+.mobile-festive-badge {
+  background: #2D1A12;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #C0A070;
+}
+
+/* 3. Floating Reopen Festive Tab */
+.floating-festive-tab {
+  position: fixed;
+  left: 0;
+  top: 48%;
+  transform: translateY(-50%);
+  z-index: 996;
+  background: linear-gradient(135deg, #2D1A12 0%, #482A1D 100%);
+  color: #FFFFFF;
+  border: 1.5px solid #C0A070;
+  border-left: none;
+  border-radius: 0 14px 14px 0;
+  box-shadow: 2px 8px 24px rgba(45, 26, 18, 0.38);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 0.95rem 0.65rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
+  animation: tabFloatGlow 3s infinite ease-in-out;
+}
+
+@keyframes tabFloatGlow {
+  0%, 100% {
+    box-shadow: 2px 8px 24px rgba(45, 26, 18, 0.38);
+  }
+  50% {
+    box-shadow: 3px 10px 28px rgba(192, 160, 112, 0.55);
+  }
+}
+
+.floating-festive-tab:hover {
+  transform: translateY(-50%) translateX(5px);
+  background: linear-gradient(135deg, #3D2216 0%, #583323 100%);
+  border-color: #E2C799;
+}
+
+.festive-tab-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.festive-tab-diya {
+  font-size: 1.35rem;
+}
+
+.festive-tab-pulse {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(192, 160, 112, 0.7);
+  animation: tabRingPulse 2s infinite ease-out;
+}
+
+@keyframes tabRingPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.festive-tab-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.festive-tab-sub {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #C0A070;
+  text-transform: uppercase;
+}
+
+.festive-tab-main {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+}
+
+/* 4. Diwali Offer Modal Pop-up */
+.diwali-offer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 12, 7, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10001;
+  display: flex;
+  align-items: flex-start; /* Never cut off or hide top of modal on overflow */
+  justify-content: center;
+  padding: 85px 1.25rem 2.5rem; /* Pushes the entire modal comfortably down from the upside */
+  animation: diwaliFadeIn 0.3s ease-out;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes diwaliFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.diwali-offer-modal-card {
+  background-color: #FCFAF7;
+  border-radius: 20px;
+  border: 2px solid #C0A070;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  max-width: 470px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  animation: diwaliCardPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes diwaliCardPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Card Header */
+.diwali-offer-card-header {
+  background: linear-gradient(135deg, #2D1A12 0%, #3D2419 100%);
+  color: #FFFFFF;
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #C0A070;
+}
+
+.diwali-header-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.diwali-header-diya {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.diwali-header-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.diwali-header-subtitle {
+  font-size: 0.74rem;
+  color: #DFCA9B;
+  font-weight: 500;
+}
+
+.diwali-offer-close-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.diwali-offer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(90deg);
+}
+
+/* Poster Image Area - Clean & Fully Visible */
+.diwali-poster-wrapper {
+  position: relative;
+  background: #F4EFE6;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.diwali-poster-img {
+  width: 100%;
+  max-height: min(48vh, 400px);
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(45, 26, 18, 0.12);
+  display: block;
+}
+
+/* Features Strip */
+.diwali-offer-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.65rem;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  background: #FCFAF7;
+  border-top: 1px solid #E6DFD3;
+  border-bottom: 1px solid #E6DFD3;
+}
+
+.diwali-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4A3A32;
+  background: rgba(192, 160, 112, 0.12);
+  padding: 3px 9px;
+  border-radius: 14px;
+}
+
+.feature-icon {
+  color: #C0A070;
+}
+
+/* Action Buttons */
+.diwali-offer-actions {
+  padding: 0.85rem 1.25rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.diwali-btn-claim {
+  background-color: #2D1A12 !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #2D1A12 !important;
+  padding: 0.82rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-shadow: 0 4px 14px rgba(45, 26, 18, 0.3);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.diwali-btn-claim:hover {
+  background-color: #482A1D !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 26, 18, 0.42);
+}
+
+.diwali-btn-call {
+  background-color: #FFFFFF !important;
+  color: #2D1A12 !important;
+  border: 1.5px solid #C0A070 !important;
+  padding: 0.72rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.diwali-btn-call:hover {
+  background-color: #F7EFE1 !important;
+  border-color: #AF8E5E !important;
+  transform: translateY(-1px);
+}
+
+/* Card Footer */
+.diwali-offer-card-footer {
+  padding: 0.3rem 1.25rem 0.85rem;
+  text-align: center;
+}
+
+.diwali-clinic-loc {
+  font-size: 0.74rem;
+  color: #705E54;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .diwali-offer-backdrop {
+    padding: 70px 0.85rem 2rem;
+  }
+
+  .top-festive-ribbon {
+    padding: 0.35rem 0;
+    font-size: 0.8rem;
+  }
+  
+  .ribbon-tag-sub {
+    display: none;
+  }
+
+  .festive-ribbon-container {
+    gap: 0.5rem;
+  }
+
+  .ribbon-cta-btn {
+    padding: 0.22rem 0.65rem;
+    font-size: 0.72rem;
+  }
+
+  .floating-festive-tab {
+    top: 52%;
+    padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+  }
+  
+  .festive-tab-diya {
+    font-size: 1.15rem;
+  }
+
+  .festive-tab-main {
+    font-size: 0.8rem;
+  }
+
+  .festive-tab-sub {
+    font-size: 0.52rem;
+  }
+
+  .diwali-offer-modal-card {
+    max-width: 95vw;
+    border-radius: 16px;
+  }
+
+  .diwali-header-title {
+    font-size: 1.05rem;
+  }
+
+  .diwali-poster-wrapper {
+    padding: 0.5rem;
+  }
+
+  .diwali-offer-actions {
+    padding: 0.75rem 1rem 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ribbon-badge {
+    display: none;
+  }
+
+  .ribbon-text {
+    font-size: 0.76rem;
+  }
+
+  .ribbon-cta-btn span {
+    display: none;
+  }
+
+  .ribbon-cta-btn::after {
+    content: "View";
   }
 }

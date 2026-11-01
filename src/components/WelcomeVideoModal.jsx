@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Volume2, VolumeX, Play, Pause, Sparkles, ArrowRight } from 'lucide-react';
 
-export default function WelcomeVideoModal() {
+export default function WelcomeVideoModal({ onClose }) {
   const [isOpen, setIsOpen] = useState(true);
   const [animationStep, setAnimationStep] = useState(0); 
   // 0: Initial, 1: "Hello", 2: "Welcome to", 3: "Aditi Dental Clinic", 4: Video reveal & play
@@ -60,6 +60,10 @@ export default function WelcomeVideoModal() {
       videoRef.current.pause();
     }
     setIsOpen(false);
+    if (onClose) {
+      onClose();
+    }
+    window.dispatchEvent(new CustomEvent('welcomeModalClosed'));
   };
 
   const togglePlay = (e) => {

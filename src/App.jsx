@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ServiceDetailPage from './components/ServiceDetailPage';
 import WelcomeVideoModal from './components/WelcomeVideoModal';
+import DiwaliOfferModal from './components/DiwaliOfferModal';
 import { treatmentsData } from './data/treatmentsData';
 
 export default function App() {
@@ -84,10 +85,32 @@ export default function App() {
     }
   };
 
+  const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+
+  const handleWelcomeClose = () => {
+    // Show offer image pop up right after video pop up closes
+    setTimeout(() => {
+      setIsOfferModalOpen(true);
+    }, 200);
+  };
+
+  const handleOpenOffer = () => {
+    setIsOfferModalOpen(true);
+  };
+
+  const handleCloseOffer = () => {
+    setIsOfferModalOpen(false);
+  };
+
   return (
     <>
-      <WelcomeVideoModal />
-      <Header onNavigateHome={handleNavigateHome} />
+      <WelcomeVideoModal onClose={handleWelcomeClose} />
+      <DiwaliOfferModal 
+        isOpen={isOfferModalOpen} 
+        onClose={handleCloseOffer} 
+        onOpenOffer={handleOpenOffer} 
+      />
+      <Header onNavigateHome={handleNavigateHome} onOpenOffer={handleOpenOffer} />
       
       {activeServiceId ? (
         // Dedicated Multi-Page Treatment Detail View
