@@ -7,7 +7,7 @@ export default function BookingForm() {
     phone: '',
     service: 'general',
     date: '',
-    timeSlot: '11:00-14:00',
+    timeSlot: '10:00-14:00',
     notes: ''
   });
 
@@ -40,9 +40,8 @@ export default function BookingForm() {
   ];
 
   const timeSlots = [
-    { value: '11:00-14:00', label: 'Morning (11:00 AM - 02:00 PM)' },
-    { value: '16:00-18:00', label: 'Late Afternoon (04:00 PM - 06:00 PM)' },
-    { value: '18:00-20:00', label: 'Evening (06:00 PM - 08:00 PM)' }
+    { value: '10:00-14:00', label: 'Morning (10:00 AM - 02:00 PM)' },
+    { value: '16:00-19:00', label: 'Evening (04:00 PM - 07:00 PM)' }
   ];
 
   const handleInputChange = (e) => {
@@ -100,7 +99,7 @@ export default function BookingForm() {
       phone: '',
       service: 'general',
       date: '',
-      timeSlot: '11:00-14:00',
+      timeSlot: '10:00-14:00',
       notes: ''
     });
     setIsSubmitted(false);
@@ -270,7 +269,7 @@ export default function BookingForm() {
                   <span>Book Another Appointment</span>
                 </button>
                 <a 
-                  href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dental+Consultation+-+Dr.+Aditi&dates=${formData.date.replace(/-/g, '')}T110000Z/${formData.date.replace(/-/g, '')}T120000Z&details=Dental+or+Maxillofacial+consultation+requested+at+Dr.+Aditi's+Clinic&location=Vivek+Khand+2,+Gomti+Nagar,+Lucknow`} 
+                  href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dental+Consultation+-+Dr.+Aditi&dates=${formData.date.replace(/-/g, '')}T${formData.timeSlot === '16:00-19:00' ? '160000' : '100000'}Z/${formData.date.replace(/-/g, '')}T${formData.timeSlot === '16:00-19:00' ? '170000' : '110000'}Z&details=Dental+or+Maxillofacial+consultation+requested+at+Dr.+Aditi's+Clinic&location=Vivek+Khand+2,+Gomti+Nagar,+Lucknow`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-secondary"

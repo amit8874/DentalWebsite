@@ -169,15 +169,15 @@ export default function Hero() {
 
               <div className="info-divider"></div>
 
-              {/* Column 2: Our Hours (11-2, 4-8) */}
+              {/* Column 2: Our Hours (10-2, 4-7) */}
               <div className="info-card-col">
                 <div className="info-icon-badge">
                   <Clock size={20} />
                 </div>
                 <div className="info-text-group">
                   <h4 className="info-title">Our Hours</h4>
-                  <p className="info-line">Mon – Sat: 11:00am – 2:00pm</p>
-                  <p className="info-line">4:00pm – 8:00pm</p>
+                  <p className="info-line">Mon – Sat: 10:00am – 2:00pm</p>
+                  <p className="info-line">4:00pm – 7:00pm</p>
                 </div>
               </div>
 

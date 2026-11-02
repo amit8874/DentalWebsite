@@ -24,7 +24,7 @@ export default function ContactInfo() {
   ];
 
   const hours = [
-    { days: 'Monday – Saturday', time: '11:00 AM – 02:00 PM, 04:00 PM – 08:00 PM' },
+    { days: 'Monday – Saturday', time: '10:00 AM – 02:00 PM, 04:00 PM – 07:00 PM' },
     { days: 'Sunday', time: 'Closed (By Appointment)' }
   ];
 
