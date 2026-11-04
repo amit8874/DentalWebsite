@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Calendar, Menu, X, ArrowRight } from 'lucide-react';
 
-export default function Header({ onNavigateHome, onOpenOffer }) {
+export default function Header({ onNavigateHome, onOpenOffer, isBlogActive }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
@@ -24,6 +24,7 @@ export default function Header({ onNavigateHome, onOpenOffer }) {
     { name: 'Services', href: '#services' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Blog', href: '#/blog' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -123,16 +124,22 @@ export default function Header({ onNavigateHome, onOpenOffer }) {
 
           {/* Desktop Navigation */}
           <nav className="desktop-nav">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link)}
-                className="nav-link"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = link.href === '#/blog' && isBlogActive;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={`nav-link ${isActive ? 'active' : ''} ${link.href === '#/blog' ? 'nav-link-blog' : ''}`}
+                >
+                  <span>{link.name}</span>
+                  {link.href === '#/blog' && (
+                    <span className="blog-nav-pill-dot" title="Clinical Cases & Guides" />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Action CTAs */}
@@ -164,16 +171,22 @@ export default function Header({ onNavigateHome, onOpenOffer }) {
         {isMobileMenuOpen && (
           <div className="mobile-nav-overlay animate-fade-in">
             <nav className="mobile-nav">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className="mobile-nav-link"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = link.href === '#/blog' && isBlogActive;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className={`mobile-nav-link ${isActive ? 'active' : ''} ${link.href === '#/blog' ? 'mobile-nav-link-blog' : ''}`}
+                  >
+                    <span>{link.name}</span>
+                    {link.href === '#/blog' && (
+                      <span className="mobile-blog-badge">Cases & Insights</span>
+                    )}
+                  </a>
+                );
+              })}
               <div className="mobile-actions">
                 <a href="tel:09208430808" className="btn btn-outline mobile-btn btn-phone">
                   <Phone size={18} />

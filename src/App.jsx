@@ -10,12 +10,14 @@ import ContactInfo from './components/ContactInfo';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ServiceDetailPage from './components/ServiceDetailPage';
+import BlogPage from './components/BlogPage';
 import WelcomeVideoModal from './components/WelcomeVideoModal';
 import DiwaliOfferModal from './components/DiwaliOfferModal';
 import { treatmentsData } from './data/treatmentsData';
 
 export default function App() {
   const [activeServiceId, setActiveServiceId] = useState(null);
+  const [isBlogPage, setIsBlogPage] = useState(false);
 
   // Parse URL hash on mount and on hashchange for deep-linking & back/forward navigation
   useEffect(() => {
@@ -25,12 +27,26 @@ export default function App() {
         const id = hash.replace('#/treatment/', '').replace('#/service/', '').trim();
         if (treatmentsData[id]) {
           setActiveServiceId(id);
+          setIsBlogPage(false);
           return;
         }
       }
-      // If returning to a normal hash or empty hash, clear active service
-      if (!hash.startsWith('#/treatment/') && !hash.startsWith('#/service/')) {
+      if (hash === '#/blog' || hash.startsWith('#/blog')) {
+        setIsBlogPage(true);
         setActiveServiceId(null);
+        return;
+      }
+      // If returning to a normal hash or empty hash, clear active service and blog view
+      if (!hash.startsWith('#/treatment/') && !hash.startsWith('#/service/') && !hash.startsWith('#/blog')) {
+        setActiveServiceId(null);
+        setIsBlogPage(false);
+      }
+
+      // Track page views in Google Analytics across all hash routes
+      if (typeof window.gtag === 'function') {
+        window.gtag('config', 'G-V0BLS230GR', {
+          page_path: window.location.pathname + (window.location.hash || '')
+        });
       }
     };
 
@@ -40,6 +56,7 @@ export default function App() {
   }, []);
 
   const handleSelectService = (id) => {
+    setIsBlogPage(false);
     setActiveServiceId(id);
     window.location.hash = `#/treatment/${id}`;
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -47,34 +64,44 @@ export default function App() {
 
   const handleBackToHome = () => {
     setActiveServiceId(null);
-    window.location.hash = '#services';
-    setTimeout(() => {
-      const targetElement = document.querySelector('#services');
-      if (targetElement) {
-        const headerOffset = 95;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 50);
+    setIsBlogPage(false);
+    window.location.hash = '#home';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateHome = (targetHref) => {
-    if (activeServiceId) {
+    if (targetHref === '#/blog') {
       setActiveServiceId(null);
+      setIsBlogPage(true);
+      window.location.hash = '#/blog';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
+    if (activeServiceId || isBlogPage) {
+      setActiveServiceId(null);
+      setIsBlogPage(false);
       window.location.hash = targetHref;
       setTimeout(() => {
+        if (targetHref === '#home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
         const targetElement = document.querySelector(targetHref);
         if (targetElement) {
           const headerOffset = 95;
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      }, 50);
+      }, 60);
     } else {
+      if (targetHref === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       const targetElement = document.querySelector(targetHref);
       if (targetElement) {
         const headerOffset = 95;
@@ -83,6 +110,21 @@ export default function App() {
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
       }
     }
+  };
+
+  const handleBookFromBlog = (subject) => {
+    setIsBlogPage(false);
+    setActiveServiceId(null);
+    window.location.hash = '#booking';
+    setTimeout(() => {
+      const bookingEl = document.querySelector('#booking');
+      if (bookingEl) {
+        const headerOffset = 95;
+        const elementPosition = bookingEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    }, 80);
   };
 
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
@@ -110,9 +152,22 @@ export default function App() {
         onClose={handleCloseOffer} 
         onOpenOffer={handleOpenOffer} 
       />
-      <Header onNavigateHome={handleNavigateHome} onOpenOffer={handleOpenOffer} />
+      <Header 
+        onNavigateHome={handleNavigateHome} 
+        onOpenOffer={handleOpenOffer}
+        isBlogActive={isBlogPage} 
+      />
       
-      {activeServiceId ? (
+      {isBlogPage ? (
+        // Dedicated Multi-Page Blog View
+        <main className="blog-page-wrapper" style={{ flexGrow: 1, minHeight: '80vh' }}>
+          <BlogPage 
+            onBack={handleBackToHome}
+            onBookAppointment={handleBookFromBlog}
+          />
+          <Footer onNavigate={handleNavigateHome} />
+        </main>
+      ) : activeServiceId ? (
         // Dedicated Multi-Page Treatment Detail View
         <main className="treatment-page-wrapper" style={{ flexGrow: 1, minHeight: '80vh' }}>
           <ServiceDetailPage 
@@ -132,7 +187,7 @@ export default function App() {
               }, 60);
             }}
           />
-          <Footer />
+          <Footer onNavigate={handleNavigateHome} />
         </main>
       ) : (
         // Clean Standard Vertical Page Scroll (No Overlapping Sticky Transition)
@@ -144,7 +199,7 @@ export default function App() {
           <Testimonials />
           <BookingForm />
           <ContactInfo />
-          <Footer />
+          <Footer onNavigate={handleNavigateHome} />
         </main>
       )}
 

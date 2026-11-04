@@ -1,11 +1,16 @@
 import React from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const currentYear = new Date().getFullYear();
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    if (onNavigate) {
+      onNavigate(href);
+      return;
+    }
+
     const targetElement = document.querySelector(href);
     if (targetElement) {
       const headerOffset = 80;
@@ -63,6 +68,7 @@ export default function Footer() {
             <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="footer-link">Home</a>
             <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="footer-link">About Dr. Aditi</a>
             <a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="footer-link">Services</a>
+            <a href="#/blog" onClick={(e) => handleNavClick(e, '#/blog')} className="footer-link">Dental Blog & Cases</a>
             <a href="#testimonials" onClick={(e) => handleNavClick(e, '#testimonials')} className="footer-link">Testimonials</a>
             <a href="#booking" onClick={(e) => handleNavClick(e, '#booking')} className="footer-link">Book Appointment</a>
           </nav>
