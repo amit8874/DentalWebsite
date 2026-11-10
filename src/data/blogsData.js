@@ -115,8 +115,8 @@ export const blogsData = [
     }
   },
   {
-    id: 'useful-guide-root-canal-therapy-myths-facts',
-    title: 'Demystifying Root Canal Therapy: Why Modern Endodontics is Painless & Saves Your Tooth',
+    id: 'when-do-you-need-root-canal-treatment',
+    title: 'When Do You Need a Root Canal Treatment?',
     subtitle: 'Everything you need to know about symptoms, modern painless techniques, and why saving your natural tooth is best',
     category: 'Oral Health Guide',
     tag: 'Dental Wellness & Endodontics',
@@ -227,6 +227,238 @@ export const blogsData = [
         'Commit to wearing aligners for 20-22 hours every single day for predictable tooth movement.',
         'Clean aligners only with lukewarm water and soft bristles—never hot water which distorts the medical plastic.',
         'Always wear your custom clear retainer as directed after treatment to permanently lock in your new smile.'
+      ]
+    }
+  },
+  {
+    id: 'benefits-of-dental-implants',
+    title: 'Benefits of Dental Implants vs. Traditional Bridges',
+    subtitle: 'Why titanium dental implants are the gold standard for replacing missing teeth for life',
+    category: 'Dental Implants',
+    tag: 'Tooth Replacement Guide',
+    type: 'guide',
+    date: 'November 8, 2026',
+    readTime: '4 min read',
+    image: '/assets/treatments/dental-implant.jpg',
+    author: {
+      name: 'Dr. Aditi Mishra',
+      role: 'BDS, MDS (Prosthodontics, KGMU Lucknow)',
+      avatar: '/assets/dr-aditi.png'
+    },
+    excerpt: 'Missing a tooth affects not only your smile but also your ability to chew and maintain jawbone health. Discover why dental implants outperform removable dentures and bridges.',
+    caseHighlights: [
+      { label: 'Treatment Type', val: 'Titanium / Zirconia Dental Implants' },
+      { label: 'Lifespan', val: '25+ years to a lifetime with routine oral hygiene' },
+      { label: 'Bone Preservation', val: '100% stimulates natural jawbone & prevents bone resorption' },
+      { label: 'Chewing Power', val: 'Restores 95%+ of natural chewing force' },
+      { label: 'Adjacent Teeth', val: 'Zero grinding of healthy neighboring teeth required' }
+    ],
+    content: {
+      introduction: `When you lose a tooth to decay, trauma, or gum infection, the underlying bone begins to shrink almost immediately. Dental implants are the only prosthetic solution that replaces both the natural root and the tooth crown.`,
+      patientBackground: `Patients frequently ask whether they should opt for a traditional 3-unit bridge or invest in a single dental implant. Here are the 5 clinical reasons dental implants remain the superior gold standard.`,
+      diagnosis: [
+        'Single or multiple missing teeth causing adjacent teeth to tilt inward.',
+        'Difficulty chewing tough, fibrous, or nutrient-rich foods.',
+        'Jawbone loss and facial sagging caused by long-term denture wear.',
+        'Desire for a permanent, fixed solution without gooey denture adhesives.'
+      ],
+      treatmentSteps: [
+        {
+          step: '1. Prevents Jawbone Loss & Facial Aging',
+          desc: 'Unlike dentures which rest on the surface, implants integrate directly with your jawbone through osseointegration, stimulating natural bone growth and preventing facial hollows.'
+        },
+        {
+          step: '2. Protects Neighboring Healthy Teeth',
+          desc: 'A conventional bridge requires grinding down two perfectly healthy adjacent teeth for support crowns. An implant stands entirely on its own root.'
+        },
+        {
+          step: '3. Full Chewing Power & Natural Sensation',
+          desc: 'Implants restore over 95% of natural biting efficiency. You can bite into crisp apples, nuts, and rotis without fear of slippage or pain.'
+        },
+        {
+          step: '4. Permanent Lifetime Durability',
+          desc: 'While bridges typically require replacement every 7 to 10 years, dental implants have a documented clinical success rate above 98% and can last a lifetime.'
+        }
+      ],
+      clinicalTakeaway: `Investing in a dental implant pays lifelong dividends in digestive health, facial structure preservation, and unshakeable smiling confidence.`,
+      postCareAdvice: [
+        'Brush and floss around the implant crown exactly like a natural tooth.',
+        'Schedule bi-annual preventive cleaning and implant torque assessments.',
+        'Avoid chewing on ice, pens, or opening packaging with your teeth.'
+      ]
+    }
+  },
+  {
+    id: 'how-to-maintain-healthy-gums',
+    title: 'How to Maintain Healthy Gums and Prevent Periodontitis',
+    subtitle: 'Essential daily practices to stop bleeding gums, reverse gingivitis, and protect your teeth foundation',
+    category: 'Preventive Care',
+    tag: 'Gum Health & Hygiene',
+    type: 'guide',
+    date: 'November 9, 2026',
+    readTime: '4 min read',
+    image: '/assets/treatments/advanced-gum.jpg',
+    author: {
+      name: 'Dr. Aditi Mishra',
+      role: 'BDS, MDS (Prosthodontics, KGMU Lucknow)',
+      avatar: '/assets/dr-aditi.png'
+    },
+    excerpt: 'Bleeding while brushing is never normal. Learn how to recognize early signs of gum disease and master doctor-recommended hygiene habits to keep your gums firm and pink.',
+    caseHighlights: [
+      { label: 'Key Focus', val: 'Gingivitis prevention & periodontal bone protection' },
+      { label: 'Warning Sign', val: 'Pink toothbrush, bleeding gums, persistent bad breath' },
+      { label: 'Recommended Tool', val: 'Ultra-soft bristles & daily waxed dental floss' },
+      { label: 'Clinical Cleaning', val: 'Professional ultrasonic scaling every 6 months' },
+      { label: 'Systemic Link', val: 'Healthy gums reduce risks of diabetes and heart inflammation' }
+    ],
+    content: {
+      introduction: `Your gums are the living foundation of your smile. Even a cavity-free tooth can become loose and fall out if the supporting periodontal ligament and jawbone are destroyed by chronic bacterial plaque.`,
+      patientBackground: `Gingivitis is the early, reversible stage of gum inflammation. If neglected, it advances into irreversible periodontitis, the leading cause of adult tooth loss worldwide.`,
+      diagnosis: [
+        'Bleeding gums while brushing or eating hard fruits.',
+        'Swollen, tender, or reddish gums instead of pale coral pink.',
+        'Persistent bad breath (halitosis) that mouthwashes cannot mask.',
+        'Gum recession creating sensitive exposed root surfaces.'
+      ],
+      treatmentSteps: [
+        {
+          step: '1. Master the 45-Degree Bass Brushing Technique',
+          desc: 'Angle your soft-bristle brush at 45 degrees towards the gumline. Use gentle vibrating circular strokes rather than harsh horizontal scrubbing that erodes enamel.'
+        },
+        {
+          step: '2. Daily Interdental Cleaning',
+          desc: 'A toothbrush cleans only 60% of tooth surfaces. Using waxed floss or an interdental brush once a day removes bacterial colonies between teeth where 90% of gum infections start.'
+        },
+        {
+          step: '3. Warm Saline Rinses for Mild Inflammation',
+          desc: 'Rinsing with warm salt water after meals draws out bacterial edema and accelerates natural gingival healing.'
+        },
+        {
+          step: '4. Bi-Annual Professional Ultrasonic Scaling',
+          desc: 'Once soft plaque calcifies into hard tartar (calculus), home brushing cannot remove it. Gentle clinic ultrasonic scaling every 6 months is essential.'
+        }
+      ],
+      clinicalTakeaway: `Healthy gums never bleed. If you notice blood in the sink, visit Dr. Aditi’s clinic promptly for a gentle periodontal evaluation before bone loss occurs.`,
+      postCareAdvice: [
+        'Replace your toothbrush every 3 months or immediately after recovering from a cold or flu.',
+        'Stay well-hydrated to stimulate protective salivary flow.',
+        'Avoid tobacco and gutkha products which severely constrict gum blood vessels.'
+      ]
+    }
+  },
+  {
+    id: 'common-causes-of-tooth-pain',
+    title: 'Common Causes of Tooth Pain & When to See an Emergency Dentist',
+    subtitle: 'From sensitive enamel to acute nerve pulpitis: diagnosing toothaches and emergency home management',
+    category: 'Emergency Care',
+    tag: 'Toothache & Emergency Guide',
+    type: 'guide',
+    date: 'November 10, 2026',
+    readTime: '4 min read',
+    image: '/assets/treatments/root-canal.jpg',
+    author: {
+      name: 'Dr. Aditi Mishra',
+      role: 'BDS, MDS (Prosthodontics, KGMU Lucknow)',
+      avatar: '/assets/dr-aditi.png'
+    },
+    excerpt: 'Waking up with throbbing toothache or sudden sharpness when sipping cold water? Understand what your tooth pain means and how to manage it safely until you reach the clinic.',
+    caseHighlights: [
+      { label: 'Emergency Contact', val: '+91 92084 30808 (Gomti Nagar Clinic)' },
+      { label: 'Common Cause #1', val: 'Deep bacterial decay reaching the nerve pulp' },
+      { label: 'Common Cause #2', val: 'Cracked tooth or dislodged restoration' },
+      { label: 'Common Cause #3', val: 'Impacted wisdom tooth inflammation (pericoronitis)' },
+      { label: 'Immediate Action', val: 'Lukewarm saline rinse + avoid heat packs on outer cheek' }
+    ],
+    content: {
+      introduction: `Tooth pain is one of the most agonizing discomforts because the trigeminal nerve carries intense pain signals directly to the brain. Knowing the underlying cause helps guide safe immediate relief.`,
+      patientBackground: `Pain characteristics give immediate clues to dentists: sharp pain on cold suggests reversible pulpitis, while lingering throbbing pain at night indicates irreversible pulpitis requiring root canal therapy.`,
+      diagnosis: [
+        'Sharp momentary sensitivity to cold water or sweets.',
+        'Continuous dull throbbing pain aggravated by lying down flat.',
+        'Pain on biting or touching the tooth with your tongue.',
+        'Swelling on the gums, cheek, or adjacent lymph nodes.'
+      ],
+      treatmentSteps: [
+        {
+          step: 'Immediate Do: Warm Salt Water Rinse',
+          desc: 'Swish gently with warm salt water to dislodge trapped food debris and soothe inflamed tissues.'
+        },
+        {
+          step: 'Immediate Do: Cold Compress on the Outer Cheek',
+          desc: 'Apply an ice pack wrapped in a cloth to your outer cheek for 15 minutes to reduce swelling and numb nerve pain.'
+        },
+        {
+          step: 'Critical Don’t: Never Place Aspirin Directly on Gums',
+          desc: 'Placing pain pills against the gums causes a severe chemical acid burn on mucosal tissue. Always swallow medication with water.'
+        },
+        {
+          step: 'Critical Don’t: Never Apply Direct Heat to the Jaw',
+          desc: 'Hot water bottles draw infection outward and can worsen acute bacterial abscesses.'
+        }
+      ],
+      clinicalTakeaway: `Painkillers only mask the symptom temporarily. The underlying infection will persist until clinically debrided and sealed by a qualified dentist.`,
+      postCareAdvice: [
+        'Contact Dr. Aditi’s clinic immediately for emergency priority scheduling.',
+        'Sleep with your head elevated on two pillows to reduce pulsatile blood pressure to the tooth.',
+        'Stick to soft, lukewarm foods on the opposite side of the mouth.'
+      ]
+    }
+  },
+  {
+    id: 'best-ways-to-keep-teeth-healthy',
+    title: 'Best Ways to Keep Your Teeth Healthy & White',
+    subtitle: 'A preventive roadmap by Dr. Aditi Mishra to protect enamel, prevent cavities, and avoid costly procedures',
+    category: 'Preventive Care',
+    tag: 'Daily Dental Habits',
+    type: 'guide',
+    date: 'November 10, 2026',
+    readTime: '3 min read',
+    image: '/assets/treatments/dental-fillings.jpg',
+    author: {
+      name: 'Dr. Aditi Mishra',
+      role: 'BDS, MDS (Prosthodontics, KGMU Lucknow)',
+      avatar: '/assets/dr-aditi.png'
+    },
+    excerpt: 'Preventing dental problems is 10 times easier and more affordable than treating them. Explore our 5 non-negotiable daily dental rules for a lifetime of healthy natural teeth.',
+    caseHighlights: [
+      { label: 'Golden Rule #1', val: 'Brush twice daily for 2 full minutes' },
+      { label: 'Golden Rule #2', val: 'Spit, don’t rinse immediately with water after brushing' },
+      { label: 'Golden Rule #3', val: 'Limit sugary snacking frequency to protect pH balance' },
+      { label: 'Golden Rule #4', val: 'Drink plenty of water to naturally flush bacterial acids' },
+      { label: 'Golden Rule #5', val: 'Visit your dentist every 6 months for preventive checkups' }
+    ],
+    content: {
+      introduction: `Natural tooth enamel is the hardest substance in the human body, but once worn away by bacterial acids or heavy abrasion, it cannot regenerate on its own. Simple daily habits make all the difference.`,
+      patientBackground: `Most patients only visit a dental clinic when they feel pain. By that point, conservative remineralization is no longer possible and more invasive treatments become necessary.`,
+      diagnosis: [
+        'White spot chalky lesions indicating early enamel demineralization.',
+        'Interdental food lodgement due to lack of flossing.',
+        'Acid erosion from acidic sodas, lemons, and gastric reflux.',
+        'Enamel chipping from using teeth as tools.'
+      ],
+      treatmentSteps: [
+        {
+          step: '1. Spit, Don’t Rinse with Water',
+          desc: 'After brushing with fluoridated toothpaste, spit out the excess lather but do not immediately rinse with a glass of water. Leaving a thin layer allows fluoride to actively remineralize enamel for 30 minutes.'
+        },
+        {
+          step: '2. Mind Snacking Frequency Over Quantity',
+          desc: 'Every time you eat carbohydrates or sugar, oral bacteria produce acids for 20 minutes. Grazing on snacks throughout the day keeps your teeth bathed in continuous acid.'
+        },
+        {
+          step: '3. Floss Before You Sleep',
+          desc: 'Saliva flow drops substantially during sleep, leaving teeth unprotected. Flossing at night removes fermentable food traps before nocturnal bacterial spikes.'
+        },
+        {
+          step: '4. Wear a Nightguard if You Clench or Grind',
+          desc: 'Unconscious nighttime bruxism can crack crowns and wear down enamel. A custom nightguard provides painless protective cushion.'
+        }
+      ],
+      clinicalTakeaway: `Consistency in basic oral hygiene saves thousands of rupees and preserves your natural smile for a lifetime.`,
+      postCareAdvice: [
+        'Schedule your routine 6-month examination and professional polish.',
+        'Use a tongue cleaner to eliminate odor-causing anaerobic bacteria.',
+        'Never use hard bristle brushes that cause gum recession.'
       ]
     }
   }

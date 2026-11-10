@@ -66,10 +66,12 @@ export default function Footer({ onNavigate }) {
           <h4 className="footer-col-title">Quick Links</h4>
           <nav className="footer-nav">
             <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="footer-link">Home</a>
-            <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="footer-link">About Dr. Aditi</a>
-            <a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="footer-link">Services</a>
+            <a href="#/about" onClick={(e) => handleNavClick(e, '#/about')} className="footer-link">About Dr. Aditi</a>
+            <a href="#/services" onClick={(e) => handleNavClick(e, '#/services')} className="footer-link">Services</a>
+            <a href="#/gallery" onClick={(e) => handleNavClick(e, '#/gallery')} className="footer-link">Clinic Gallery</a>
+            <a href="#/testimonials" onClick={(e) => handleNavClick(e, '#/testimonials')} className="footer-link">Testimonials</a>
             <a href="#/blog" onClick={(e) => handleNavClick(e, '#/blog')} className="footer-link">Dental Blog & Cases</a>
-            <a href="#testimonials" onClick={(e) => handleNavClick(e, '#testimonials')} className="footer-link">Testimonials</a>
+            <a href="#/contact" onClick={(e) => handleNavClick(e, '#/contact')} className="footer-link">Contact & Location</a>
             <a href="#booking" onClick={(e) => handleNavClick(e, '#booking')} className="footer-link">Book Appointment</a>
           </nav>
         </div>

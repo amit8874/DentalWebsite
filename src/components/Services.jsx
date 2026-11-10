@@ -109,6 +109,20 @@ export default function Services({ onSelectService }) {
       image: '/assets/treatments/dental-xray.jpg',
       desc: 'Ultra-low radiation digital radiography and panoramic scans providing instant high-resolution diagnostic imaging for accurate care.',
       fullDesc: 'Ultra-low radiation digital radiography and panoramic scans providing instant high-resolution diagnostic imaging for accurate care.'
+    },
+    {
+      id: 'teeth-whitening',
+      name: 'Teeth Whitening',
+      image: '/assets/treatments/cosmetic-dentistry.jpg',
+      desc: 'Professional in-office whitening erasing stubborn stains and lightening enamel up to 8 shades in a 45-minute gentle session.',
+      fullDesc: 'Professional in-office teeth whitening and enamel brightening, erasing stubborn food, tea, and tobacco stains in just 45 minutes.'
+    },
+    {
+      id: 'maxillofacial-surgery',
+      name: 'Maxillofacial Surgery',
+      image: '/assets/clinic_interior.png',
+      desc: 'Advanced surgical & prosthetic rehabilitation for facial trauma, custom silicone ocular/auricular prosthetics, and TMJ therapies.',
+      fullDesc: 'Advanced maxillofacial rehabilitation led by KGMU specialist Dr. Aditi Mishra, including custom silicone prosthetics and TMJ joint therapy.'
     }
   ];
 

@@ -80,19 +80,19 @@ export default function BlogPage({ onBack, onBookAppointment }) {
               </button>
               <button
                 type="button"
-                className={`blog-filter-pill ${activeFilter === 'case' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('case')}
-              >
-                <Stethoscope size={14} />
-                <span>Clinical Cases (2)</span>
-              </button>
-              <button
-                type="button"
                 className={`blog-filter-pill ${activeFilter === 'guide' ? 'active' : ''}`}
                 onClick={() => setActiveFilter('guide')}
               >
                 <HeartPulse size={14} />
-                <span>Oral Health Guides (2)</span>
+                <span>Educational Guides ({blogsData.filter(b => b.type === 'guide').length})</span>
+              </button>
+              <button
+                type="button"
+                className={`blog-filter-pill ${activeFilter === 'case' ? 'active' : ''}`}
+                onClick={() => setActiveFilter('case')}
+              >
+                <Stethoscope size={14} />
+                <span>Clinical Cases ({blogsData.filter(b => b.type === 'case').length})</span>
               </button>
             </div>
           </div>

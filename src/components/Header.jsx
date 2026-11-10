@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Calendar, Menu, X, ArrowRight } from 'lucide-react';
 
-export default function Header({ onNavigateHome, onOpenOffer, isBlogActive }) {
+export default function Header({ onNavigateHome, onOpenOffer, activePage = 'home' }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
@@ -19,13 +19,13 @@ export default function Header({ onNavigateHome, onOpenOffer, isBlogActive }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About Dr. Aditi', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Blog', href: '#/blog' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '#home', page: 'home' },
+    { name: 'About Dr. Aditi', href: '#/about', page: 'about' },
+    { name: 'Services', href: '#/services', page: 'services' },
+    { name: 'Gallery', href: '#/gallery', page: 'gallery' },
+    { name: 'Testimonials', href: '#/testimonials', page: 'testimonials' },
+    { name: 'Blog', href: '#/blog', page: 'blog' },
+    { name: 'Contact', href: '#/contact', page: 'contact' },
   ];
 
   const handleNavClick = (e, link) => {
@@ -125,7 +125,7 @@ export default function Header({ onNavigateHome, onOpenOffer, isBlogActive }) {
           {/* Desktop Navigation */}
           <nav className="desktop-nav">
             {navLinks.map((link) => {
-              const isActive = link.href === '#/blog' && isBlogActive;
+              const isActive = activePage === link.page || (link.page === 'home' && (!activePage || activePage === 'home'));
               return (
                 <a
                   key={link.name}
@@ -172,7 +172,7 @@ export default function Header({ onNavigateHome, onOpenOffer, isBlogActive }) {
           <div className="mobile-nav-overlay animate-fade-in">
             <nav className="mobile-nav">
               {navLinks.map((link) => {
-                const isActive = link.href === '#/blog' && isBlogActive;
+                const isActive = activePage === link.page || (link.page === 'home' && (!activePage || activePage === 'home'));
                 return (
                   <a
                     key={link.name}

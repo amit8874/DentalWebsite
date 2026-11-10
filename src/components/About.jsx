@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, GraduationCap, Heart, CheckCircle } from 'lucide-react';
+import { Award, GraduationCap, Heart, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function About() {
   const highlights = [
@@ -73,6 +73,17 @@ export default function About() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div style={{ marginTop: '1.8rem' }}>
+            <a 
+              href="#/about" 
+              className="btn btn-outline"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
+            >
+              <span>Read Full Doctor Profile & Clinic Standards</span>
+              <ArrowRight size={16} />
+            </a>
           </div>
         </div>
       </div>

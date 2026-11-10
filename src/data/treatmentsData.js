@@ -958,5 +958,127 @@ export const treatmentsData = {
         }
       ]
     }
+  },
+
+  'teeth-whitening': {
+    id: 'teeth-whitening',
+    name: 'Teeth Whitening & Bleaching',
+    shortName: 'Teeth Whitening',
+    hero: {
+      title: 'Professional In-Office Teeth Whitening for a Dazzling, Confident Smile',
+      subtitle: 'Safe, enamel-friendly whitening procedures that erase stubborn tea, coffee, and tobacco stains in just one 45-minute clinical session.',
+      ctaText: 'Brighten Your Smile',
+      image: '/assets/treatments/cosmetic-dentistry.jpg'
+    },
+    quote: {
+      patientImage: '/assets/treatments/cosmetic-dentistry.jpg',
+      headline: 'A Radiant Smile That Leaves a Lasting Impression, Safely Guided by Specialists',
+      p1: 'Discolored or yellowing teeth can make you hesitant to smile in photos, meetings, and celebrations. Over-the-counter strips often cause gum irritation and uneven shade removal.',
+      p2: 'Our clinical LED-accelerated whitening uses pH-neutral, enamel-remineralizing formulations under gingival barrier protection to lighten teeth up to 6 to 8 shades safely in under an hour.'
+    },
+    benefitSection: {
+      title: 'Who Can Benefit',
+      subtitle: 'Ideal for patients with :',
+      conditions: [
+        { title: 'Tea & Coffee Stains', desc: 'Deep stubborn surface discoloration from daily caffeine consumption.' },
+        { title: 'Tobacco & Smoking Discoloration', desc: 'Nicotine and tar stains embedded in tooth enamel pores.' },
+        { title: 'Upcoming Weddings & Special Occasions', desc: 'Fast, noticeable aesthetic boost for photos and public events.' },
+        { title: 'Age-Related Enamel Thinning', desc: 'Yellow dentin showing through worn enamel over time.' },
+        { title: 'Mild Fluorosis & Mottling', desc: 'Superficial enamel spots smoothed into a uniform shade.' },
+        { title: 'Post-Braces Enamel Refresh', desc: 'Restoring an even, radiant white glow after bracket removal.' }
+      ]
+    },
+    whyChoose: {
+      title: "Why Choose Dr. Aditi's Clinic for Teeth Whitening?",
+      subtitle: 'Medical-grade safety, guaranteed shade lightening, and zero tooth sensitivity protocols.',
+      image: '/assets/treatments/cosmetic-dentistry.jpg',
+      features: [
+        {
+          title: 'Up to 8 Shades Whiter in 45 Mins',
+          desc: 'Immediate visible results in a single, comfortable in-office appointment.'
+        },
+        {
+          title: 'Gingival Barrier Protection',
+          desc: 'Medical-grade gum dam barrier applied so your gums experience zero burning or sensitivity.'
+        },
+        {
+          title: 'Enamel Remineralizing Formulation',
+          desc: 'Contains potassium nitrate and fluoride to strengthen enamel and prevent post-procedure sensitivity.'
+        },
+        {
+          title: 'Custom Take-Home Maintenance Trays',
+          desc: 'Precision fit touch-up trays provided so you can maintain your sparkling shade for years.'
+        },
+        {
+          title: 'Shade Matching Calibration',
+          desc: 'Digital shade guide before-and-after photographic verification ensuring natural brightness.'
+        },
+        {
+          title: 'KGMU Specialist Supervision',
+          desc: 'Performed under the direct supervision of Dr. Aditi Mishra to ensure complete oral tissue safety.'
+        }
+      ]
+    }
+  },
+
+  'maxillofacial-surgery': {
+    id: 'maxillofacial-surgery',
+    name: 'Maxillofacial Surgery & Prosthetics',
+    shortName: 'Maxillofacial Care',
+    hero: {
+      title: 'Advanced Oral & Maxillofacial Rehabilitation by KGMU Alumna Specialist',
+      subtitle: 'Specialized surgical and prosthetic rehabilitation for facial defects, jaw fractures, severe TMJ disorders, and custom silicone prosthetics.',
+      ctaText: 'Consult Specialist',
+      image: '/assets/clinic_interior.png'
+    },
+    quote: {
+      patientImage: '/assets/dr-aditi.png',
+      headline: 'Restoring Facial Dignity, Jaw Function & Quality of Life Through Advanced Prosthodontics',
+      p1: 'Maxillofacial prosthetics is a specialized sub-branch dedicated to patients with congenital defects, surgical trauma, cancer resection, or severe joint dysfunction.',
+      p2: 'Trained at the prestigious King George’s Medical University (KGMU), Dr. Aditi Mishra pioneers custom silicone ocular (eye), auricular (ear), and obturator prosthetics alongside comprehensive TMJ therapies.'
+    },
+    benefitSection: {
+      title: 'Who Can Benefit',
+      subtitle: 'Patients requiring specialized care for :',
+      conditions: [
+        { title: 'Post-Cancer Surgical Defect Rehabilitation', desc: 'Custom silicone prosthetics restoring lost facial contours and speech.' },
+        { title: 'Severe TMJ Clicking & Jaw Joint Pain', desc: 'Custom therapeutic occlusal splints to relieve jaw lock and headache.' },
+        { title: 'Cleft Palate & Palatal Defects', desc: 'Custom surgical and speech-aid obturators for normal swallowing and phonetics.' },
+        { title: 'Custom Eye (Ocular) & Ear Prosthetics', desc: 'Hand-painted, biocompatible medical silicone prosthetics matching natural skin.' },
+        { title: 'Jaw Fracture Recovery & Occlusal Fixation', desc: 'Post-trauma bite restoration and conservative neuromuscular rehabilitation.' },
+        { title: 'Complex Facial Asymmetry Corrections', desc: 'Collaborative prosthetic care to reconstruct balanced facial harmony.' }
+      ]
+    },
+    whyChoose: {
+      title: "Why Dr. Aditi Mishra for Maxillofacial Rehabilitation?",
+      subtitle: 'Exceptional KGMU academic training with compassionate patient-centric rehabilitation.',
+      image: '/assets/clinic_interior.png',
+      features: [
+        {
+          title: 'KGMU MDS Prosthodontics Pedigree',
+          desc: 'Formal post-graduate specialization from Uttar Pradesh’s topmost premier medical university.'
+        },
+        {
+          title: 'Medical-Grade Biocompatible Silicone',
+          desc: 'Custom-sculpted, feather-light prosthetics that match your exact natural skin tone and texture.'
+        },
+        {
+          title: 'Advanced TMJ Splint Therapy',
+          desc: 'Non-surgical jaw joint decompression splints providing immediate relief from chronic clicking and pain.'
+        },
+        {
+          title: 'Restores Speech, Swallowing & Chewing',
+          desc: 'Engineered for functional oral seal, allowing patients to eat and speak normally with confidence.'
+        },
+        {
+          title: 'Compassionate Psycho-Social Support',
+          desc: 'A gentle, patient-focused environment dedicated to rebuilding personal self-esteem and quality of life.'
+        },
+        {
+          title: 'Multidisciplinary Collaboration',
+          desc: 'Coordinating care with ENT, oncology, and plastic surgeons for holistic patient wellness.'
+        }
+      ]
+    }
   }
 };

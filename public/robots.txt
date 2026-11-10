@@ -1,0 +1,6 @@
+# robots.txt for Dr. Aditi's Dental & Maxillofacial Clinic
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://draditisdental.com/sitemap.xml
