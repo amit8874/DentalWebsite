@@ -8,7 +8,7 @@ const heroSlides = [
     titleHighlight: 'beautiful smile',
     description:
       'Experience precision-driven aesthetic dentistry and gentle restorative treatments in Lucknow. Led by Dr. Aditi Mishra, Prosthodontist, we ensure honest, conservative care for every generation.',
-    subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
+    subtext: '📍 2/457, Vivek Khand 2, Gomti Nagar, Lucknow',
     images: {
       box1: {
         src: '/assets/dental_chair.png',
@@ -33,7 +33,7 @@ const heroSlides = [
     titleHighlight: 'maxillofacial excellence',
     description:
       'Specializing in advanced dental implants, precision dentures, and comprehensive maxillofacial smile rehabilitation. We pair cutting-edge diagnostics with hospital-grade sterilization for painless, enduring comfort.',
-    subtext: '📍 Vivek Khand 2, Gomti Nagar, Lucknow',
+    subtext: '📍 2/457, Vivek Khand 2, Gomti Nagar, Lucknow',
     images: {
       box1: {
         src: '/assets/dental-working-2.PNG',
@@ -195,7 +195,7 @@ export default function Hero() {
                 </div>
                 <div className="info-text-group">
                   <h4 className="info-title">Location</h4>
-                  <p className="info-line">Vivek Khand 2, Gomti Nagar</p>
+                  <p className="info-line">2/457, Vivek Khand 2, Gomti Nagar</p>
                   <p className="info-line">Lucknow, UP 226010</p>
                 </div>
               </a>

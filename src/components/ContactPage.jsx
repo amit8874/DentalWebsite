@@ -14,7 +14,7 @@ export default function ContactPage({ onBack }) {
     {
       icon: <MapPin size={24} />,
       title: 'Our Clinic Address',
-      content: 'Vivek Khand 2, Gomti Nagar, Lucknow, Uttar Pradesh 226010',
+      content: '2/457, Vivek Khand 2, Gomti Nagar, Lucknow, Uttar Pradesh 226010',
       link: 'https://maps.app.goo.gl/1ye8ETHSimo9SPKZn'
     },
     {

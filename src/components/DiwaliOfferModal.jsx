@@ -181,7 +181,7 @@ export default function DiwaliOfferModal({ isOpen: controlledIsOpen, onClose: co
             {/* Location & Microcopy Footer */}
             <div className="diwali-offer-card-footer">
               <p className="diwali-clinic-loc">
-                📍 Vivek Khand 2, Gomti Nagar, Lucknow • Limited Period Offer
+                📍 2/457, Vivek Khand 2, Gomti Nagar, Lucknow • Limited Period Offer
               </p>
             </div>
           </div>

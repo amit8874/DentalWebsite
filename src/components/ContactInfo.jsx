@@ -6,7 +6,7 @@ export default function ContactInfo() {
     {
       icon: <MapPin className="contact-icon-svg" size={24} />,
       title: 'Our Location',
-      content: 'Vivek Khand 2, Gomti Nagar, Lucknow, Uttar Pradesh 226010',
+      content: '2/457, Vivek Khand 2, Gomti Nagar, Lucknow, Uttar Pradesh 226010',
       link: 'https://maps.app.goo.gl/1ye8ETHSimo9SPKZn'
     },
     {

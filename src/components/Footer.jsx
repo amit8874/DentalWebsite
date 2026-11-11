@@ -81,7 +81,7 @@ export default function Footer({ onNavigate }) {
           <div className="footer-contact-info">
             <div className="footer-contact-row">
               <MapPin size={16} className="footer-contact-icon" />
-              <span>Vivek Khand 2, Gomti Nagar, Lucknow</span>
+              <span>2/457, Vivek Khand 2, Gomti Nagar, Lucknow</span>
             </div>
             <div className="footer-contact-row">
               <Phone size={16} className="footer-contact-icon" />

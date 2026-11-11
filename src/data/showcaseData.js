@@ -225,7 +225,7 @@ export const showcaseItems = [
     id: 'photo_clinic_exterior',
     badge: 'Clinic Location',
     title: 'Prime Location in Gomti Nagar',
-    desc: 'Easily accessible clinic at Vivek Khand 2, Gomti Nagar, Lucknow with ample parking.',
+    desc: 'Easily accessible clinic at 2/457, Vivek Khand 2, Gomti Nagar, Lucknow with ample parking.',
     src: '/assets/client_photo_1.webp'
   },
   // 25. Video 1

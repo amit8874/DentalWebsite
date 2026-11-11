@@ -1082,3 +1082,24 @@ export const treatmentsData = {
     }
   }
 };
+
+// Clean navigation list for Header Dropdown & Service Detail Left Sidebar
+export const servicesNavList = [
+  { id: 'root-canal', name: 'Root Canal Treatment', shortName: 'Root Canal' },
+  { id: 'dental-implant', name: 'Dental Implants', shortName: 'Dental Implants' },
+  { id: 'cosmetic-dentistry', name: 'Cosmetic Dentistry', shortName: 'Cosmetic Dentistry' },
+  { id: 'teeth-whitening', name: 'Teeth Whitening', shortName: 'Teeth Whitening' },
+  { id: 'teeth-braces', name: 'Teeth Braces', shortName: 'Teeth Braces' },
+  { id: 'aligners', name: 'Clear Aligners', shortName: 'Aligners' },
+  { id: 'dental-crowns', name: 'Dental Crowns', shortName: 'Dental Crowns' },
+  { id: 'dental-fillings', name: 'Dental Fillings', shortName: 'Dental Fillings' },
+  { id: 'wisdom-teeth', name: 'Wisdom Teeth Extraction', shortName: 'Wisdom Teeth' },
+  { id: 'dentures', name: 'Dentures & Prosthetics', shortName: 'Dentures' },
+  { id: 'laser-dentistry', name: 'Laser Dentistry', shortName: 'Laser Dentistry' },
+  { id: 'kids-dentistry', name: 'Kids Dentistry', shortName: 'Kids Dentistry' },
+  { id: 'mouth-ulcers', name: 'Mouth Ulcers Treatment', shortName: 'Mouth Ulcers' },
+  { id: 'advanced-gum', name: 'Advance Gum Treatment', shortName: 'Gum Treatment' },
+  { id: 'snoring-sleep-apnea', name: 'Snoring & Sleep Apnea', shortName: 'Sleep Apnea' },
+  { id: 'dental-xray', name: 'Dental X-Ray & Scans', shortName: 'Dental X-Ray' },
+  { id: 'maxillofacial-surgery', name: 'Maxillofacial Surgery', shortName: 'Maxillofacial Surgery' }
+];

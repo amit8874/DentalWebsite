@@ -171,7 +171,7 @@ export default function AboutPage({ onBack, onBookAppointment }) {
             <span className="section-tag">Clinic Standards</span>
             <h2 className="section-title">Safe, Modern & Patient-Centric Facility</h2>
             <p className="section-desc" style={{ maxWidth: '650px', margin: '0 auto' }}>
-              Located in Vivek Khand 2, Gomti Nagar, our clinic is equipped with global-standard sterilization, 
+              Located at 2/457, Vivek Khand 2, Gomti Nagar, our clinic is equipped with global-standard sterilization, 
               digital diagnostics, and a peaceful treatment environment.
             </p>
           </div>

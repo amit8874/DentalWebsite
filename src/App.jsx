@@ -106,6 +106,13 @@ export default function App() {
   };
 
   const handleNavigateHome = (targetHref) => {
+    // Dedicated Treatment Page routing
+    if (targetHref.startsWith('#/treatment/') || targetHref.startsWith('#/service/')) {
+      const id = targetHref.replace('#/treatment/', '').replace('#/service/', '').trim();
+      handleSelectService(id);
+      return;
+    }
+
     // Dedicated Multi-Page routing
     if (targetHref === '#/about') {
       setActiveServiceId(null);
@@ -218,6 +225,7 @@ export default function App() {
       />
       <Header 
         onNavigateHome={handleNavigateHome} 
+        onSelectService={handleSelectService}
         onOpenOffer={handleOpenOffer}
         activePage={currentPage} 
       />
@@ -281,6 +289,7 @@ export default function App() {
         <main className="treatment-page-wrapper" style={{ flexGrow: 1, minHeight: '80vh' }}>
           <ServiceDetailPage 
             serviceId={activeServiceId} 
+            onSelectService={handleSelectService}
             onBack={() => handleNavigateHome('#/services')}
             onBookService={(serviceName) => {
               handleNavigateHome('#booking');

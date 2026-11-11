@@ -1,16 +1,25 @@
 import React, { useEffect } from 'react';
 import { 
   ChevronRight, ArrowLeft, Phone, Calendar, 
-  Sparkles, CheckCircle2, ShieldCheck, HeartPulse, Clock, Award
+  Sparkles, HeartPulse 
 } from 'lucide-react';
-import { treatmentsData } from '../data/treatmentsData';
+import { treatmentsData, servicesNavList } from '../data/treatmentsData';
 
-export default function ServiceDetailPage({ serviceId, onBack, onBookService }) {
+export default function ServiceDetailPage({ serviceId, onSelectService, onBack, onBookService }) {
   const treatment = treatmentsData[serviceId] || treatmentsData['teeth-braces'];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [serviceId]);
+
+  const handleSelectServiceClick = (srvId) => {
+    if (onSelectService) {
+      onSelectService(srvId);
+    } else {
+      window.location.hash = `#/treatment/${srvId}`;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleBookingClick = () => {
     if (onBookService) {
@@ -62,10 +71,71 @@ export default function ServiceDetailPage({ serviceId, onBack, onBookService }) 
         </div>
       </div>
 
-      {/* ======================================================== */}
-      {/* 2. HERO BANNER SECTION (Matches Screenshot 2)            */}
-      {/* ======================================================== */}
-      <section className="treatment-hero-section">
+      {/* Main Page Layout Container with Left Services Sidebar */}
+      <div className="container treatment-page-container">
+        <div className="treatment-layout-grid">
+          {/* LEFT-HAND SIDEBAR - ALL SERVICES LIST (VISIBLE & SCROLLABLE ON ALL SCREENS) */}
+          <aside className="treatment-left-sidebar" aria-label="Services Navigation">
+            <div className="sidebar-sticky-inner">
+              <div className="treatment-sidebar-card">
+                <div className="sidebar-heading-row">
+                  <div className="sidebar-badge">Specialties</div>
+                  <h3 className="sidebar-title">All Services</h3>
+                  <span className="sidebar-count">({servicesNavList.length})</span>
+                </div>
+
+                <nav className="treatment-sidebar-list">
+                  {servicesNavList.map((srv) => {
+                    const isActive = srv.id === (serviceId || treatment.id);
+                    return (
+                      <button
+                        key={srv.id}
+                        type="button"
+                        onClick={() => handleSelectServiceClick(srv.id)}
+                        className={`treatment-sidebar-item ${isActive ? 'active' : ''}`}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        <span className="sidebar-item-name">{srv.name}</span>
+                        <ChevronRight size={16} className="sidebar-item-arrow" />
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* Consultation / Help Card in Sidebar */}
+              <div className="sidebar-help-card">
+                <div className="sidebar-help-header">
+                  <HeartPulse size={20} className="sidebar-help-icon" />
+                  <h4>Expert Consultation</h4>
+                </div>
+                <p>
+                  Consult directly with KGMU alumna Dr. Aditi Mishra for tailored diagnosis.
+                </p>
+                <div className="sidebar-help-actions">
+                  <button 
+                    onClick={handleBookingClick}
+                    className="sidebar-help-book-btn"
+                    type="button"
+                  >
+                    <Calendar size={15} />
+                    <span>Book Appointment</span>
+                  </button>
+                  <a href="tel:09208430808" className="sidebar-help-call-btn">
+                    <Phone size={15} />
+                    <span>092084 30808</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* RIGHT-HAND MAIN CONTENT */}
+          <div className="treatment-right-content">
+            {/* ======================================================== */}
+            {/* 2. HERO BANNER SECTION (Matches Screenshot 2)            */}
+            {/* ======================================================== */}
+            <section className="treatment-hero-section">
         <div className="container treatment-hero-grid">
           
           <div className="treatment-hero-left">
@@ -250,7 +320,7 @@ export default function ServiceDetailPage({ serviceId, onBack, onBookService }) 
             <span className="cta-strip-tag">Dr. Aditi's Dental & Maxillofacial Clinic</span>
             <h3 className="cta-strip-heading">Schedule Your {treatment.shortName || treatment.name} Consultation</h3>
             <p className="cta-strip-desc">
-              KGMU Alumna • 10+ Years Experience • Vivek Khand 2, Gomti Nagar, Lucknow
+              KGMU Alumna • 10+ Years Experience • 2/457, Vivek Khand 2, Gomti Nagar, Lucknow
             </p>
           </div>
 
@@ -268,6 +338,45 @@ export default function ServiceDetailPage({ serviceId, onBack, onBookService }) 
               <Phone size={18} />
               <span>Call: 092084 30808</span>
             </a>
+          </div>
+        </div>
+      </section>
+
+          </div>{/* End treatment-right-content */}
+        </div>{/* End treatment-layout-grid */}
+      </div>{/* End treatment-page-container */}
+
+      {/* ======================================================== */}
+      {/* 7. ALL SERVICES SECTION - SHOWN JUST ABOVE FOOTER ON MOBILE */}
+      {/* ======================================================== */}
+      <section className="treatment-bottom-services-section">
+        <div className="container">
+          <div className="bottom-services-card-wrapper">
+            <div className="bottom-services-header">
+              <span className="bottom-services-badge">Specialties</span>
+              <h3 className="bottom-services-title">All Dental Services</h3>
+              <p className="bottom-services-desc">
+                Select any treatment below to view full details and clinical care.
+              </p>
+            </div>
+
+            <div className="bottom-services-grid">
+              {servicesNavList.map((srv) => {
+                const isActive = srv.id === (serviceId || treatment.id);
+                return (
+                  <button
+                    key={srv.id}
+                    type="button"
+                    onClick={() => handleSelectServiceClick(srv.id)}
+                    className={`bottom-service-item-btn ${isActive ? 'active' : ''}`}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    <span className="bottom-service-btn-name">{srv.name}</span>
+                    <ChevronRight size={16} className="bottom-service-btn-arrow" />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
